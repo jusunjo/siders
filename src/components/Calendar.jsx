@@ -10,10 +10,10 @@ const StyledCalendar = styled.div`
 const StyledDatePicker = styled(DatePicker)`
     width: 110px;
 `;
-const Calendar = () => {
-    const [startDate, setStartDate] = useState(new Date());
+const Calendar = ({ setStartDate, startDate }) => {
+    // const [startDate, setStartDate] = useState(new Date());
 
-    console.log(startDate);
+    // console.log(startDate);
     return (
         <StyledCalendar>
             <StyledDatePicker dateFormat="yyyy년 MM월 dd일" selected={startDate} onChange={(date) => setStartDate(date)} />
