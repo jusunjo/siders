@@ -3,7 +3,9 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import styled from "styled-components";
 
-const StyledEditor = styled.div``;
+const StyledEditor = styled.div`
+    /* height: 1400px; */
+`;
 
 // 옵션에 상응하는 포맷, 추가해주지 않으면 text editor에 적용된 스타일을 볼수 없음
 export const formats = [
@@ -38,11 +40,9 @@ const modules = {
 
 const Editor = ({ placeholder, value, setContent }) => {
     const handleText = (value) => {
-        console.log(value);
         setContent(value);
     };
 
-    console.log(value);
     return (
         <StyledEditor>
             <ReactQuill
