@@ -25,6 +25,14 @@ const StyledHeader = styled.div`
         font-size: 15px;
         color: #555555;
         .signIn {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f0f0f0;
+            width: 59px;
+            height: 32px;
+            border-radius: 4px;
             margin-left: 36px;
         }
     }
@@ -39,7 +47,6 @@ const Header = ({ setModalOpen }: { setModalOpen: any }) => {
         <StyledHeader>
             <div className="logo">Siders</div>
             <div className="sign">
-                <div className="signUp">회원가입</div>
                 <div onClick={showModal} className="signIn">
                     로그인
                 </div>
