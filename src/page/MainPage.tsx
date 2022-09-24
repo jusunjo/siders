@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import LoginModal from "../components/LoginModal";
+import NicknameModal from "../components/NicknameModal";
 import Pagination from "../components/Pagination";
 import SelectBox from "../components/SelectBox";
 import SidersBox from "../components/SidersBox";
@@ -14,6 +15,7 @@ const StyledMainPage = styled.div`
     flex-direction: column;
     flex: 1;
     width: 100%;
+
     input::placeholder {
         color: #dbdbdb;
     }
@@ -243,7 +245,7 @@ const MainPage = () => {
                 </div>
                 <Pagination />
             </StyledMainPage>
-            {modalOpen && <LoginModal setModalOpen={setModalOpen} />}
+            {modalOpen && <NicknameModal setModalOpen={setModalOpen} />}
         </>
     );
 };

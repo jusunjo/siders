@@ -15,7 +15,7 @@ const StyledLoginModal = styled.div`
 
         /* 모달창 크기 */
         width: 464px;
-        height: 528px;
+        height: 352px;
 
         /* 최상단 위치 */
         z-index: 999;
@@ -62,53 +62,32 @@ const StyledLoginModal = styled.div`
         color: #767676;
     }
 
-    .socialBox {
+    .createNickname {
+        margin-top: 32px;
+        padding-left: 24px;
+        width: 320px;
+        height: 56px;
+        background: #ffffff;
+        border: 1px solid #dbdbdb;
+        border-radius: 10px;
+    }
+
+    .completeBtn {
         display: flex;
         align-items: center;
         justify-content: center;
+        color: white;
+        margin-top: 16px;
+        cursor: pointer;
         width: 344px;
         height: 56px;
+        background: #000000;
         box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.084), 0px 2px 3px rgba(0, 0, 0, 0.168);
         border-radius: 10px;
-        cursor: pointer;
-        img {
-            width: 32px;
-            height: 32px;
-            margin-right: 24px;
-        }
-    }
-    .google {
-        margin-top: 32px;
-        background: #ffffff;
-    }
-
-    .github {
-        margin-top: 16px;
-        color: #ffffff;
-        background: #000000;
-    }
-
-    .kakao {
-        margin-top: 16px;
-        background: #ffe812;
-    }
-
-    .naver {
-        margin-top: 16px;
-        color: #ffffff;
-        background: #57b04b;
-    }
-
-    .toggleLog {
-        margin-top: 45px;
-        font-size: 14px;
-        line-height: 17px;
-        cursor: pointer;
-        color: #767676;
     }
 `;
 
-const LoginModal = ({ setModalOpen }: { setModalOpen: any }) => {
+const NicknameModal = ({ setModalOpen }: { setModalOpen: any }) => {
     // 모달 끄기 (X버튼 onClick 이벤트 핸들러)
     const closeModal = () => {
         setModalOpen(false);
@@ -138,47 +117,17 @@ const LoginModal = ({ setModalOpen }: { setModalOpen: any }) => {
         };
     });
 
-    const [toggleMainText, setToggleMainText] = useState("로그인");
-    const [toggleSubText, setToggleSubText] = useState("회원가입");
-
-    const handleToggleLog = () => {
-        if (toggleSubText === "로그인") {
-            setToggleMainText("로그인");
-            setToggleSubText("회원가입");
-        } else if (toggleSubText === "회원가입") {
-            setToggleMainText("회원가입");
-            setToggleSubText("로그인");
-        }
-    };
-
     return (
         <StyledLoginModal>
             <div ref={modalRef} className="container">
                 <img onClick={closeModal} alt="close" className="close" src={process.env.PUBLIC_URL + `/assets/close.png`} />
-                <div className="loginText">{toggleMainText}</div>
-                <div className="sideText">사이더스에서 직접 프로젝트를 생성해보세요!</div>
-                <div className="socialBox google">
-                    <img alt="google" className="googleImg" src={process.env.PUBLIC_URL + `/assets/Google.png`} />
-                    <div>구글로 시작하기&nbsp;&nbsp;&nbsp;</div>
-                </div>
-                <div className="socialBox github">
-                    <img alt="google" className="githubImg" src={process.env.PUBLIC_URL + `/assets/Github.png`} />
-                    <div>깃허브로 시작하기</div>
-                </div>
-                <div className="socialBox kakao">
-                    <img alt="google" className="kakaoImg" src={process.env.PUBLIC_URL + `/assets/Kakao.png`} />
-                    <div>카카오로 시작하기</div>
-                </div>
-                <div className="socialBox naver">
-                    <img alt="google" className="naverImg" src={process.env.PUBLIC_URL + `/assets/Naver.png`} />
-                    <div>네이버로 시작하기</div>
-                </div>
-                <div onClick={handleToggleLog} className="toggleLog">
-                    {toggleSubText}
-                </div>
+                <div className="loginText">프로필 설정</div>
+                <div className="sideText">닉네임 설정만 하면 가입 완료!</div>
+                <input className="createNickname" placeholder="닉네임을 입력해주세요" />
+                <div className="completeBtn">가입 완료</div>
             </div>
         </StyledLoginModal>
     );
 };
 
-export default LoginModal;
+export default NicknameModal;
