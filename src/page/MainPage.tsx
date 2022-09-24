@@ -65,6 +65,7 @@ const StyledMainPage = styled.div`
         }
 
         .toggleCategory {
+            position: absolute;
             background: #ffffff;
             border: 1px solid #ededed;
             box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
@@ -85,6 +86,10 @@ const StyledMainPage = styled.div`
                     background: #f0f0f0;
                 }
             }
+        }
+
+        .noneToggleCategory {
+            display: none;
         }
 
         .searchBar {
@@ -161,18 +166,10 @@ const MainPage = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectFilter, setSelectFilter] = useState("all");
     const [selectCategory, setSelectCategory] = useState("모집 유형");
+    const [CategoryFocus, setCategoryFocus] = useState(false);
+    const [otherFocus, setOtherFocus] = useState(false);
 
-    const handleFilter = (value: any) => {
-        if (value.target.className === "all") {
-            setSelectFilter("all");
-        } else if (value.target.className === "project") {
-            setSelectFilter("project");
-        } else if (value.target.className === "study") {
-            setSelectFilter("study");
-        }
-    };
-
-    console.log(selectCategory);
+    console.log(otherFocus);
 
     return (
         <>
@@ -183,19 +180,37 @@ const MainPage = () => {
                     <div className="secondIntro">이제 사이더스에서 쉽게 찾아보세요</div>
                 </div>
                 <div className="search">
-                    <div>
-                        <div className="category">
+                    <div onFocus={() => (!otherFocus ? setCategoryFocus(true) : setCategoryFocus(false))} onBlur={() => setCategoryFocus(false)} tabIndex={1}>
+                        <div onMouseDown={() => setCategoryFocus(!CategoryFocus)} className="category">
                             <div className="categoryText">{selectCategory}</div>
                             <img alt="vector" className="vector" src={process.env.PUBLIC_URL + `/assets/Vector.png`} />
                         </div>
-                        <div className="toggleCategory">
-                            <div onClick={() => setSelectCategory("모집 유형")} className="toggleCategoryValue">
-                                &nbsp;&nbsp;모집 유형
+                        <div className={CategoryFocus ? "toggleCategory" : "noneToggleCategory"}>
+                            <div
+                                onClick={() => {
+                                    setSelectCategory("전체 보기");
+                                    setCategoryFocus(false);
+                                }}
+                                className="toggleCategoryValue"
+                            >
+                                &nbsp;&nbsp;전체 보기
                             </div>
-                            <div onClick={() => setSelectCategory("스터디")} className="toggleCategoryValue">
+                            <div
+                                onClick={() => {
+                                    setSelectCategory("스터디");
+                                    setCategoryFocus(false);
+                                }}
+                                className="toggleCategoryValue"
+                            >
                                 &nbsp;&nbsp;스터디
                             </div>
-                            <div onClick={() => setSelectCategory("사이드 프로젝트")} className="toggleCategoryValue">
+                            <div
+                                onClick={() => {
+                                    setSelectCategory("사이드 프로젝트");
+                                    setCategoryFocus(false);
+                                }}
+                                className="toggleCategoryValue"
+                            >
                                 &nbsp;&nbsp;사이드 프로젝트
                             </div>
                         </div>
@@ -207,13 +222,13 @@ const MainPage = () => {
                 </div>
                 <div className="filter">
                     <div className="filtering">
-                        <div onClick={(e) => handleFilter(e)} className={selectFilter === "all" ? "selectCategory" : "all"}>
+                        <div onClick={() => setSelectFilter("all")} className={selectFilter === "all" ? "selectCategory" : "all"}>
                             전체보기
                         </div>
-                        <div onClick={(e) => handleFilter(e)} className={selectFilter === "project" ? "selectCategory" : "project"}>
+                        <div onClick={() => setSelectFilter("project")} className={selectFilter === "project" ? "selectCategory" : "project"}>
                             프로젝트
                         </div>
-                        <div onClick={(e) => handleFilter(e)} className={selectFilter === "study" ? "selectCategory" : "study"}>
+                        <div onClick={() => setSelectFilter("study")} className={selectFilter === "study" ? "selectCategory" : "study"}>
                             스터디
                         </div>
                     </div>
