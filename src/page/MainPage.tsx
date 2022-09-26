@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
+
 import LoginModal from "../components/LoginModal";
-import NicknameModal from "../components/NicknameModal";
 
 import SelectBox from "../components/SelectBox";
 import SidersBox from "../components/SidersBox";

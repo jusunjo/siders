@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import MainPage from "./page/MainPage";
 import CreateProject from "./page/CreateProject";
 import Header from "./components/Header";
-import Footer from "./components/Footer";
+
 import SetProfile from "./page/SetProfile";
 import { useState } from "react";
 import MyProfile from "./page/MyProfile";

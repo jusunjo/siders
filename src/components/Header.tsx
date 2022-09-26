@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import SelectBox from "./SelectBox";
 
 const StyledHeader = styled.div`
     margin-bottom: 136px;
@@ -15,7 +14,7 @@ const StyledHeader = styled.div`
     .logo {
         width: 88px;
         height: 34px;
-
+        cursor: pointer;
         font-style: normal;
         font-weight: 600;
         font-size: 28px;
@@ -142,7 +141,7 @@ const Header = ({ setModalOpen }: { setModalOpen: any }) => {
                     </div>
                 ) : (
                     <div className="loginForm">
-                        <div className="writes">
+                        <div onClick={() => navigate("createproject")} className="writes">
                             <img alt="pensil" className="pensil" src={process.env.PUBLIC_URL + `/assets/pensil.png`} />
                             <div>글작성</div>
                         </div>
