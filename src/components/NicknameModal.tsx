@@ -8,6 +8,12 @@ const StyledLoginModal = styled.div`
     bottom: 0;
     right: 0;
     background: rgba(0, 0, 0, 0.4);
+
+    @media (max-width: 500px) {
+        .container {
+            width: 100%;
+        }
+    }
     .container {
         display: flex;
         flex-direction: column;

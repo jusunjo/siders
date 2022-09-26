@@ -5,6 +5,9 @@ import MainPage from "./page/MainPage";
 import CreateProject from "./page/CreateProject";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import SetProfile from "./page/SetProfile";
+import { useState } from "react";
+import MyProfile from "./page/MyProfile";
 
 const StyledApp = styled.div`
     width: 1440px;
@@ -17,11 +20,16 @@ const StyledApp = styled.div`
 `;
 
 function App() {
+    const [modalOpen, setModalOpen] = useState(false);
     return (
         <>
             <StyledApp>
+                <Header setModalOpen={setModalOpen} />
                 <Routes>
-                    <Route path="/" element={<MainPage />} />
+                    <Route path="/" element={<MainPage modalOpen={modalOpen} setModalOpen={setModalOpen} />} />
+                    <Route path="createproject" element={<CreateProject />} />
+                    <Route path="setprofile" element={<SetProfile />} />
+                    <Route path="myprofile" element={<MyProfile />} />
                     <Route path="createproject" element={<CreateProject />} />
                 </Routes>
                 {/* <Footer /> */}
