@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
+
 import LoginModal from "../components/LoginModal";
-import NicknameModal from "../components/NicknameModal";
-import Pagination from "../components/Pagination";
+
 import SelectBox from "../components/SelectBox";
 import SidersBox from "../components/SidersBox";
 
@@ -44,7 +42,6 @@ const StyledMainPage = styled.div`
         justify-content: center;
 
         .category {
-            /* margin-right: 8px; */
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -72,13 +69,14 @@ const StyledMainPage = styled.div`
             border: 1px solid #ededed;
             box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
-            padding: 8px;
 
             .toggleCategoryValue {
+                margin: 8px;
                 line-height: 19px;
+
+                width: 204px;
                 text-align: center;
                 color: #555555;
-                width: 204px;
                 height: 40px;
                 display: flex;
                 align-items: center;
@@ -100,7 +98,7 @@ const StyledMainPage = styled.div`
             align-items: center;
             justify-content: space-between;
             padding-left: 16px;
-            width: 464px;
+            width: 480px;
             height: 56px;
             background: #ffffff;
             border: 1px solid #dbdbdb;
@@ -128,6 +126,7 @@ const StyledMainPage = styled.div`
 
         .filtering {
             display: flex;
+
             color: #555555;
             .all,
             .project,
@@ -164,26 +163,21 @@ const StyledMainPage = styled.div`
         flex-wrap: wrap;
     }
 `;
-const MainPage = () => {
-    const [modalOpen, setModalOpen] = useState(false);
+const MainPage = ({ modalOpen, setModalOpen }: { modalOpen: any; setModalOpen: any }) => {
     const [selectFilter, setSelectFilter] = useState("all");
     const [selectCategory, setSelectCategory] = useState("모집 유형");
     const [CategoryFocus, setCategoryFocus] = useState(false);
-    const [otherFocus, setOtherFocus] = useState(false);
-
-    console.log(otherFocus);
 
     return (
         <>
-            <Header setModalOpen={setModalOpen} />
             <StyledMainPage>
                 <div className="intro">
                     <div className="firstIntro">사이드 프로젝트 </div>
                     <div className="secondIntro">이제 사이더스에서 쉽게 찾아보세요</div>
                 </div>
                 <div className="search">
-                    <div onFocus={() => (!otherFocus ? setCategoryFocus(true) : setCategoryFocus(false))} onBlur={() => setCategoryFocus(false)} tabIndex={1}>
-                        <div onMouseDown={() => setCategoryFocus(!CategoryFocus)} className="category">
+                    <div className="categorys" onFocus={() => setCategoryFocus(true)} onBlur={() => setCategoryFocus(false)} tabIndex={1}>
+                        <div className="category" onMouseDown={() => setCategoryFocus(!CategoryFocus)}>
                             <div className="categoryText">{selectCategory}</div>
                             <img alt="vector" className="vector" src={process.env.PUBLIC_URL + `/assets/Vector.png`} />
                         </div>
@@ -234,7 +228,7 @@ const MainPage = () => {
                             스터디
                         </div>
                     </div>
-                    <SelectBox text={"정렬 방식"} />
+                    <SelectBox textArr={["정렬방식(All)", "최신순", "오래된순"]} />
                 </div>
                 <div className="sidersBoxs">
                     <SidersBox />
@@ -243,9 +237,8 @@ const MainPage = () => {
                     <SidersBox />
                     <SidersBox />
                 </div>
-                <Pagination />
             </StyledMainPage>
-            {modalOpen && <NicknameModal setModalOpen={setModalOpen} />}
+            {modalOpen && <LoginModal setModalOpen={setModalOpen} />}
         </>
     );
 };

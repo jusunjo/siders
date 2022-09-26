@@ -40,6 +40,6 @@ const userInfo = createSlice({
     },
 });
 
-export const {} = userInfo.actions;
+// export const {} = userInfo.actions;
 
 export default userInfo.reducer;

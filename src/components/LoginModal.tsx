@@ -106,6 +106,13 @@ const StyledLoginModal = styled.div`
         cursor: pointer;
         color: #767676;
     }
+
+    @media (max-width: 500px) {
+        .container {
+            width: 100%;
+            height: 100%;
+        }
+    }
 `;
 
 const LoginModal = ({ setModalOpen }: { setModalOpen: any }) => {

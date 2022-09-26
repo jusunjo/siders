@@ -12,6 +12,8 @@ const StyledSidersBox = styled.div`
     height: 200px;
     margin: 5px;
     padding: 40px 31px;
+    cursor: pointer;
+
     .top {
         width: 100%;
 
