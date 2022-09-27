@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const StyledSelectBox = styled.div`
-    width: 100%;
     height: 48px;
     //props로 width랑 height값을 넘겨주면될듯
     background: #ffffff;
@@ -25,7 +24,7 @@ const StyledSelectBox = styled.div`
         display: flex;
         align-items: center;
         justify-content: space-between;
-
+        width: 220px;
         height: 48px;
         background: #ffffff;
         border-radius: 10px;
@@ -48,7 +47,7 @@ const StyledSelectBox = styled.div`
         border: 1px solid #ededed;
         box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
-        width: 204px;
+        width: calc(220px - 16px);
         padding: 8px;
         margin-top: 1px;
 
