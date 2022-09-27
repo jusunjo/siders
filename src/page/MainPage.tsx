@@ -168,7 +168,7 @@ const MainPage = ({ modalOpen, setModalOpen }: { modalOpen: any; setModalOpen: a
     const [selectFilter, setSelectFilter] = useState("all");
     const [selectCategory, setSelectCategory] = useState("모집 유형");
     const [CategoryFocus, setCategoryFocus] = useState(false);
-    const [aaa, setAaa] = useState();
+
     useEffect(() => {
         const getProject = async () => {
             const response = await axios.get("/?page=1&size=10");
@@ -176,8 +176,6 @@ const MainPage = ({ modalOpen, setModalOpen }: { modalOpen: any; setModalOpen: a
         };
         getProject();
     }, []);
-
-    console.log(aaa);
 
     return (
         <>
