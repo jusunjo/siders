@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 const StyledEditor = styled.div`
     /* height: 1400px; */
+    z-index: -1;
 `;
 
 // 옵션에 상응하는 포맷, 추가해주지 않으면 text editor에 적용된 스타일을 볼수 없음

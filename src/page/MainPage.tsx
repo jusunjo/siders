@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import LoginModal from "../components/LoginModal";
@@ -168,6 +169,14 @@ const MainPage = ({ modalOpen, setModalOpen }: { modalOpen: any; setModalOpen: a
     const [selectCategory, setSelectCategory] = useState("모집 유형");
     const [CategoryFocus, setCategoryFocus] = useState(false);
 
+    useEffect(() => {
+        const getProject = async () => {
+            const response = await axios.get("/?page=1&size=10");
+            console.log(response);
+        };
+        getProject();
+    }, []);
+
     return (
         <>
             <StyledMainPage>
@@ -213,7 +222,7 @@ const MainPage = ({ modalOpen, setModalOpen }: { modalOpen: any; setModalOpen: a
                     </div>
                     <div className="searchBar">
                         <input type="text" className="searchInput" placeholder="관심있는 분야 혹은 기술 스택을 검색해보세요" />
-                        <img alt="vector" className="zoomIn" src={process.env.PUBLIC_URL + `/assets/돋보기.png`} />
+                        <img alt="vector" className="zoomIn" src={process.env.PUBLIC_URL + `/assets/zoomIn.png`} />
                     </div>
                 </div>
                 <div className="filter">
