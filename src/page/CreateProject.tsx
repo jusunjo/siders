@@ -81,7 +81,6 @@ const StyledCreateProject = styled.div`
 
 const CreateProject = () => {
     const [content, setContent] = useState();
-    const [getKey, setGetKey] = useState();
     const [countSkillBox, setCountSkillBox] = useState(1);
     const [arraySKillBox, setArraySkillBox] = useState<any[]>([]);
 
@@ -118,15 +117,7 @@ const CreateProject = () => {
             <div className="recruitmentSubText"> 분야별 모집하고자 하는 팀원의 종합 요구 능력치를 입력할 수 있어요.</div>
 
             {arraySKillBox.map((key) => (
-                <SkillBox
-                    key={key}
-                    num={key}
-                    countSkillBox={countSkillBox}
-                    setCountSkillBox={setCountSkillBox}
-                    arraySKillBox={arraySKillBox}
-                    setArraySkillBox={setArraySkillBox}
-                    setGetKey={setGetKey}
-                />
+                <SkillBox key={key} num={key} countSkillBox={countSkillBox} setCountSkillBox={setCountSkillBox} arraySKillBox={arraySKillBox} setArraySkillBox={setArraySkillBox} />
             ))}
             <div className="contentText">상세 내용</div>
             <div className="contentSubText">프로젝트/스터디의 추가 정보를 입력해 주세요.</div>
