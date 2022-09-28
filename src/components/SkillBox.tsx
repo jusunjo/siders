@@ -189,18 +189,24 @@ const SkillBox = ({
     const [selectPeople, setSelectPeople] = useState("인원 수");
 
     const groupValue = ["프론트엔드", "백엔드", "ui/ux"];
-    const skillValue = ["React", "Vue", "JavaScript", "TypeScript", "Java", "Nodejs", "Spring", "Figma", "Zeplin"];
 
-    const notSelect = [""];
     const frontndSkill = ["Javascript", "Typescript", "React", "Vue", "Redux", "Mobx"];
     const BackendSkill = ["Java", "NodeJs", "Spring", ""];
-    const designSkill = ["Figma", "Zeplin"];
+    const designSkill = ["Figma", "Zeplin", "Sketch", "XD", "Illustrator", "Photoshop"];
     const levelValue = ["Low", "Mid", "High"];
     const peopleValue = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
-    const addSkill = async (it: any) => {
-        setSelectSkill((data) => [...data, it]);
+    const set = new Set(selectSkill);
+
+    const addSkill = (it: any) => {
+        if (set.size < 5) {
+            setSelectSkill((data) => [...data, it]);
+        } else {
+            alert("5개까지만 선택이 가능합니다.");
+        }
     };
+
+    console.log(set.size);
 
     const deleteSkill = (it: any) => {
         const b = selectSkill.filter((data) => data !== it);
@@ -247,7 +253,7 @@ const SkillBox = ({
                 </div>
             </div>
             <div className="selectForm skill" onFocus={() => selectGroup !== "분야선택" && setSkillFocus(true)} onBlur={() => setSkillFocus(false)} tabIndex={1}>
-                <div onMouseDown={() => (selectGroup !== "분야선택" ? setSkillFocus(!skillFocus) : alert("분야를 선택해주세요"))} className="category skillCategory">
+                <div onMouseDown={() => (selectGroup !== "분야선택" ? setSkillFocus(!skillFocus) : alert("분야를 선택해주세요!"))} className="category skillCategory">
                     <div className="categoryText">
                         {selectSkill[0] === undefined ? (
                             <div className="skillText">기술 스택</div>
