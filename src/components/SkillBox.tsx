@@ -83,6 +83,10 @@ const StyledSkillBox = styled.div`
                 background: #f0f0f0;
             }
         }
+
+        /* .notSelectGroup {
+            background-color: red;
+        } */
     }
 
     .skill {
@@ -184,12 +188,17 @@ const SkillBox = ({
     const [selectLevel, setSelectLevel] = useState("종합 요구 능력치");
     const [selectPeople, setSelectPeople] = useState("인원 수");
 
-    const groupValue = ["프론트엔드", "백엔드", "기획자", "ui/ux"];
+    const groupValue = ["프론트엔드", "백엔드", "ui/ux"];
     const skillValue = ["React", "Vue", "JavaScript", "TypeScript", "Java", "Nodejs", "Spring", "Figma", "Zeplin"];
-    const levelValue = ["Low", "Mid", "High"];
-    const peopleValue = ["1", "2", "3", " 4", "5"];
 
-    const addSkill = (it: any) => {
+    const notSelect = [""];
+    const frontndSkill = ["Javascript", "Typescript", "React", "Vue", "Redux", "Mobx"];
+    const BackendSkill = ["Java", "NodeJs", "Spring", ""];
+    const designSkill = ["Figma", "Zeplin"];
+    const levelValue = ["Low", "Mid", "High"];
+    const peopleValue = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
+    const addSkill = async (it: any) => {
         setSelectSkill((data) => [...data, it]);
     };
 
@@ -198,8 +207,12 @@ const SkillBox = ({
         setSelectSkill(b);
     };
 
-    const onClick = () => {
-        setCountSkillBox(countSkillBox + 1);
+    const addSkillBox = () => {
+        if (arraySKillBox.length < 3) {
+            setCountSkillBox(countSkillBox + 1);
+        } else {
+            alert("3개의 분야까지 추가 가능합니다.");
+        }
     };
 
     const deleteSkillBox = () => {
@@ -210,8 +223,6 @@ const SkillBox = ({
             return alert("더 이상 삭제할 수 없습니다.");
         }
     };
-
-    console.log(arraySKillBox.length);
 
     return (
         <StyledSkillBox>
@@ -235,42 +246,48 @@ const SkillBox = ({
                     ))}
                 </div>
             </div>
-            <div className="selectForm skill" onFocus={() => setSkillFocus(true)} onBlur={() => setSkillFocus(false)} tabIndex={1}>
-                <div onMouseDown={() => setSkillFocus(!skillFocus)} className="category skillCategory">
+            <div className="selectForm skill" onFocus={() => selectGroup !== "분야선택" && setSkillFocus(true)} onBlur={() => setSkillFocus(false)} tabIndex={1}>
+                <div onMouseDown={() => (selectGroup !== "분야선택" ? setSkillFocus(!skillFocus) : alert("분야를 선택해주세요"))} className="category skillCategory">
                     <div className="categoryText">
                         {selectSkill[0] === undefined ? (
                             <div className="skillText">기술 스택</div>
                         ) : (
-                            selectSkill.map((it) => (
-                                <div key={it} className="skillItems">
-                                    <div>{it}</div>
-                                    <img
-                                        onClick={() => {
-                                            setSkillFocus(false);
-                                            deleteSkill(it);
-                                        }}
-                                        alt="smallClose"
-                                        className="smallClose"
-                                        src={process.env.PUBLIC_URL + `/assets/smallClose.png`}
-                                    />
-                                </div>
-                            ))
+                            selectSkill
+                                .filter((element, index) => selectSkill.indexOf(element) === index)
+                                .map((it) => (
+                                    <div key={it} className="skillItems">
+                                        <div>{it}</div>
+                                        <img
+                                            onClick={() => {
+                                                setSkillFocus(false);
+                                                deleteSkill(it);
+                                            }}
+                                            alt="smallClose"
+                                            className="smallClose"
+                                            src={process.env.PUBLIC_URL + `/assets/smallClose.png`}
+                                        />
+                                    </div>
+                                ))
                         )}
                     </div>
                     <img alt="vector" className="vector" src={process.env.PUBLIC_URL + `/assets/Vector.png`} />
                 </div>
                 <div className={skillFocus ? "toggleCategory skillValue" : "noneToggleCategory"}>
-                    {skillValue.map((it: string) => (
-                        <div
-                            onClick={() => {
-                                setSkillFocus(false);
-                                addSkill(it);
-                            }}
-                            className="toggleCategoryValue"
-                        >
-                            &nbsp;&nbsp;{it}
-                        </div>
-                    ))}
+                    {selectGroup !== "분야선택" ? (
+                        (selectGroup === "프론트엔드" ? frontndSkill : selectGroup === "백엔드" ? BackendSkill : designSkill).map((it: string) => (
+                            <div
+                                onClick={() => {
+                                    setSkillFocus(false);
+                                    addSkill(it);
+                                }}
+                                className="toggleCategoryValue"
+                            >
+                                &nbsp;&nbsp;{it && it}
+                            </div>
+                        ))
+                    ) : (
+                        <div className="notSelectGroup">분야를 선택해주세요</div>
+                    )}
                 </div>
             </div>
             <div className="selectForm level" onFocus={() => setLevelFocus(true)} onBlur={() => setLevelFocus(false)} tabIndex={1}>
@@ -317,7 +334,7 @@ const SkillBox = ({
                 삭제
             </div>
             {arraySKillBox && arraySKillBox[arraySKillBox.length - 1] === num ? (
-                <div onClick={onClick} className="addBtn">
+                <div onClick={addSkillBox} className="addBtn">
                     추가
                 </div>
             ) : (
