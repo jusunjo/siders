@@ -244,6 +244,7 @@ const SkillBox = ({
                             onClick={() => {
                                 setGroupFocus(false);
                                 setSelectGroup(it);
+                                setSelectSkill([]);
                             }}
                             className="toggleCategoryValue"
                         >
