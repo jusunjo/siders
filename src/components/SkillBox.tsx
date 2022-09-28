@@ -163,14 +163,14 @@ const SkillBox = ({
     setCountSkillBox,
     countSkillBox,
     num,
-    setGetKey,
+
     arraySKillBox,
     setArraySkillBox,
 }: {
     countSkillBox: any;
     setCountSkillBox: any;
     num: any;
-    setGetKey: any;
+
     arraySKillBox: any;
     setArraySkillBox: any;
 }) => {
