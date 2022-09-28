@@ -184,12 +184,17 @@ const SkillBox = ({
     const [selectLevel, setSelectLevel] = useState("종합 요구 능력치");
     const [selectPeople, setSelectPeople] = useState("인원 수");
 
-    const groupValue = ["프론트엔드", "백엔드", "기획자", "ui/ux"];
+    const groupValue = ["프론트엔드", "백엔드", "ui/ux"];
     const skillValue = ["React", "Vue", "JavaScript", "TypeScript", "Java", "Nodejs", "Spring", "Figma", "Zeplin"];
+
+    const notSelect = [""];
+    const frontndSkill = ["Javascript", "Typescript", "React", "Vue", "Redux", "Mobx"];
+    const BackendSkill = ["Java", "NodeJs", "Spring", ""];
+    const designSkill = ["Figma", "Zeplin"];
     const levelValue = ["Low", "Mid", "High"];
     const peopleValue = ["1", "2", "3", " 4", "5"];
 
-    const addSkill = (it: any) => {
+    const addSkill = async (it: any) => {
         setSelectSkill((data) => [...data, it]);
     };
 
@@ -210,8 +215,6 @@ const SkillBox = ({
             return alert("더 이상 삭제할 수 없습니다.");
         }
     };
-
-    console.log(arraySKillBox.length);
 
     return (
         <StyledSkillBox>
@@ -241,36 +244,42 @@ const SkillBox = ({
                         {selectSkill[0] === undefined ? (
                             <div className="skillText">기술 스택</div>
                         ) : (
-                            selectSkill.map((it) => (
-                                <div key={it} className="skillItems">
-                                    <div>{it}</div>
-                                    <img
-                                        onClick={() => {
-                                            setSkillFocus(false);
-                                            deleteSkill(it);
-                                        }}
-                                        alt="smallClose"
-                                        className="smallClose"
-                                        src={process.env.PUBLIC_URL + `/assets/smallClose.png`}
-                                    />
-                                </div>
-                            ))
+                            selectSkill
+                                .filter((element, index) => selectSkill.indexOf(element) === index)
+                                .map((it) => (
+                                    <div key={it} className="skillItems">
+                                        <div>{it}</div>
+                                        <img
+                                            onClick={() => {
+                                                setSkillFocus(false);
+                                                deleteSkill(it);
+                                            }}
+                                            alt="smallClose"
+                                            className="smallClose"
+                                            src={process.env.PUBLIC_URL + `/assets/smallClose.png`}
+                                        />
+                                    </div>
+                                ))
                         )}
                     </div>
                     <img alt="vector" className="vector" src={process.env.PUBLIC_URL + `/assets/Vector.png`} />
                 </div>
                 <div className={skillFocus ? "toggleCategory skillValue" : "noneToggleCategory"}>
-                    {skillValue.map((it: string) => (
-                        <div
-                            onClick={() => {
-                                setSkillFocus(false);
-                                addSkill(it);
-                            }}
-                            className="toggleCategoryValue"
-                        >
-                            &nbsp;&nbsp;{it}
-                        </div>
-                    ))}
+                    {selectGroup !== "분야선택" ? (
+                        (selectGroup === "프론트엔드" ? frontndSkill : selectGroup === "백엔드" ? BackendSkill : designSkill).map((it: string) => (
+                            <div
+                                onClick={() => {
+                                    setSkillFocus(false);
+                                    addSkill(it);
+                                }}
+                                className="toggleCategoryValue"
+                            >
+                                &nbsp;&nbsp;{it && it}
+                            </div>
+                        ))
+                    ) : (
+                        <div></div>
+                    )}
                 </div>
             </div>
             <div className="selectForm level" onFocus={() => setLevelFocus(true)} onBlur={() => setLevelFocus(false)} tabIndex={1}>
