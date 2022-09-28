@@ -83,6 +83,10 @@ const StyledSkillBox = styled.div`
                 background: #f0f0f0;
             }
         }
+
+        /* .notSelectGroup {
+            background-color: red;
+        } */
     }
 
     .skill {
@@ -192,7 +196,7 @@ const SkillBox = ({
     const BackendSkill = ["Java", "NodeJs", "Spring", ""];
     const designSkill = ["Figma", "Zeplin"];
     const levelValue = ["Low", "Mid", "High"];
-    const peopleValue = ["1", "2", "3", " 4", "5"];
+    const peopleValue = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
     const addSkill = async (it: any) => {
         setSelectSkill((data) => [...data, it]);
@@ -203,8 +207,12 @@ const SkillBox = ({
         setSelectSkill(b);
     };
 
-    const onClick = () => {
-        setCountSkillBox(countSkillBox + 1);
+    const addSkillBox = () => {
+        if (arraySKillBox.length < 3) {
+            setCountSkillBox(countSkillBox + 1);
+        } else {
+            alert("3개의 분야까지 추가 가능합니다.");
+        }
     };
 
     const deleteSkillBox = () => {
@@ -238,8 +246,8 @@ const SkillBox = ({
                     ))}
                 </div>
             </div>
-            <div className="selectForm skill" onFocus={() => setSkillFocus(true)} onBlur={() => setSkillFocus(false)} tabIndex={1}>
-                <div onMouseDown={() => setSkillFocus(!skillFocus)} className="category skillCategory">
+            <div className="selectForm skill" onFocus={() => selectGroup !== "분야선택" && setSkillFocus(true)} onBlur={() => setSkillFocus(false)} tabIndex={1}>
+                <div onMouseDown={() => (selectGroup !== "분야선택" ? setSkillFocus(!skillFocus) : alert("분야를 선택해주세요"))} className="category skillCategory">
                     <div className="categoryText">
                         {selectSkill[0] === undefined ? (
                             <div className="skillText">기술 스택</div>
@@ -278,7 +286,7 @@ const SkillBox = ({
                             </div>
                         ))
                     ) : (
-                        <div></div>
+                        <div className="notSelectGroup">분야를 선택해주세요</div>
                     )}
                 </div>
             </div>
@@ -326,7 +334,7 @@ const SkillBox = ({
                 삭제
             </div>
             {arraySKillBox && arraySKillBox[arraySKillBox.length - 1] === num ? (
-                <div onClick={onClick} className="addBtn">
+                <div onClick={addSkillBox} className="addBtn">
                     추가
                 </div>
             ) : (
