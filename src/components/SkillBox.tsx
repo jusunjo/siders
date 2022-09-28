@@ -13,6 +13,7 @@ const StyledSkillBox = styled.div`
     .selectForm {
         margin-right: 2%;
         width: 220px;
+
         position: relative;
     }
 
@@ -125,6 +126,13 @@ const StyledSkillBox = styled.div`
         margin-left: 8px;
     }
 
+    .noneAddBtn {
+        width: 48px;
+        height: 24px;
+        border-radius: 4px;
+        margin-left: 8px;
+    }
+
     .skillText {
         padding: 5px 0;
     }
@@ -144,8 +152,28 @@ const StyledSkillBox = styled.div`
             margin-left: 7px;
         }
     }
+
+    .group,
+    .level,
+    .people {
+        height: 48px;
+    }
 `;
-const SkillBox = () => {
+const SkillBox = ({
+    setCountSkillBox,
+    countSkillBox,
+    num,
+    setGetKey,
+    arraySKillBox,
+    setArraySkillBox,
+}: {
+    countSkillBox: any;
+    setCountSkillBox: any;
+    num: any;
+    setGetKey: any;
+    arraySKillBox: any;
+    setArraySkillBox: any;
+}) => {
     const [groupFocus, setGroupFocus] = useState(false);
     const [skillFocus, setSkillFocus] = useState(false);
     const [levelFocus, setLevelFocus] = useState(false);
@@ -165,11 +193,29 @@ const SkillBox = () => {
         setSelectSkill((data) => [...data, it]);
     };
 
-    console.log(selectSkill[0]);
+    const deleteSkill = (it: any) => {
+        const b = selectSkill.filter((data) => data !== it);
+        setSelectSkill(b);
+    };
+
+    const onClick = () => {
+        setCountSkillBox(countSkillBox + 1);
+    };
+
+    const deleteSkillBox = () => {
+        if (arraySKillBox.length > 1) {
+            const newData = arraySKillBox.filter((data: any) => data !== num);
+            setArraySkillBox(newData);
+        } else {
+            return alert("더 이상 삭제할 수 없습니다.");
+        }
+    };
+
+    console.log(arraySKillBox.length);
 
     return (
         <StyledSkillBox>
-            <div className="selectForm" onFocus={() => setGroupFocus(true)} onBlur={() => setGroupFocus(false)} tabIndex={1}>
+            <div className="selectForm group" onFocus={() => setGroupFocus(true)} onBlur={() => setGroupFocus(false)} tabIndex={1}>
                 <div onMouseDown={() => setGroupFocus(!groupFocus)} className="category">
                     <div className="categoryText">{selectGroup}</div>
                     <img alt="vector" className="vector" src={process.env.PUBLIC_URL + `/assets/Vector.png`} />
@@ -177,6 +223,7 @@ const SkillBox = () => {
                 <div className={groupFocus ? "toggleCategory" : "noneToggleCategory"}>
                     {groupValue.map((it: string) => (
                         <div
+                            key={it}
                             onClick={() => {
                                 setGroupFocus(false);
                                 setSelectGroup(it);
@@ -195,9 +242,17 @@ const SkillBox = () => {
                             <div className="skillText">기술 스택</div>
                         ) : (
                             selectSkill.map((it) => (
-                                <div className="skillItems">
+                                <div key={it} className="skillItems">
                                     <div>{it}</div>
-                                    <img alt="smallClose" className="smallClose" src={process.env.PUBLIC_URL + `/assets/smallClose.png`} />
+                                    <img
+                                        onClick={() => {
+                                            setSkillFocus(false);
+                                            deleteSkill(it);
+                                        }}
+                                        alt="smallClose"
+                                        className="smallClose"
+                                        src={process.env.PUBLIC_URL + `/assets/smallClose.png`}
+                                    />
                                 </div>
                             ))
                         )}
@@ -218,7 +273,7 @@ const SkillBox = () => {
                     ))}
                 </div>
             </div>
-            <div className="selectForm" onFocus={() => setLevelFocus(true)} onBlur={() => setLevelFocus(false)} tabIndex={1}>
+            <div className="selectForm level" onFocus={() => setLevelFocus(true)} onBlur={() => setLevelFocus(false)} tabIndex={1}>
                 <div onMouseDown={() => setLevelFocus(!levelFocus)} className="category">
                     <div className="categoryText">{selectLevel}</div>
                     <img alt="vector" className="vector" src={process.env.PUBLIC_URL + `/assets/Vector.png`} />
@@ -226,6 +281,7 @@ const SkillBox = () => {
                 <div className={levelFocus ? "toggleCategory" : "noneToggleCategory"}>
                     {levelValue.map((it: string) => (
                         <div
+                            key={it}
                             onClick={() => {
                                 setLevelFocus(false);
                                 setSelectLevel(it);
@@ -237,7 +293,7 @@ const SkillBox = () => {
                     ))}
                 </div>
             </div>
-            <div className="selectForm" onFocus={() => setPeopleFocus(true)} onBlur={() => setPeopleFocus(false)} tabIndex={1}>
+            <div className="selectForm people" onFocus={() => setPeopleFocus(true)} onBlur={() => setPeopleFocus(false)} tabIndex={1}>
                 <div onMouseDown={() => setPeopleFocus(!peopleFocus)} className="category">
                     <div className="categoryText">{selectPeople}</div>
                     <img alt="vector" className="vector" src={process.env.PUBLIC_URL + `/assets/Vector.png`} />
@@ -245,6 +301,7 @@ const SkillBox = () => {
                 <div className={peopleFocus ? "toggleCategory" : "noneToggleCategory"}>
                     {peopleValue.map((it: string) => (
                         <div
+                            key={it}
                             onClick={() => {
                                 setPeopleFocus(false);
                                 setSelectPeople(it);
@@ -256,8 +313,16 @@ const SkillBox = () => {
                     ))}
                 </div>
             </div>
-            <div className="deleteBtn">삭제</div>
-            <div className="addBtn">추가</div>
+            <div onClick={deleteSkillBox} className="deleteBtn">
+                삭제
+            </div>
+            {arraySKillBox && arraySKillBox[arraySKillBox.length - 1] === num ? (
+                <div onClick={onClick} className="addBtn">
+                    추가
+                </div>
+            ) : (
+                <div className="noneAddBtn"></div>
+            )}
         </StyledSkillBox>
     );
 };
