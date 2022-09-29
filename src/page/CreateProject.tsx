@@ -2,7 +2,7 @@ import Editor from "../components/Editor";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import SkillBox from "../components/SkillBox";
-import axios from "axios";
+
 // import Calendar from "../components/Calendar";
 
 const StyledCreateProject = styled.div`
