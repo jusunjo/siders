@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
 const StyledSkillBox = styled.div`
@@ -221,18 +221,18 @@ const SkillBox = ({
     setCountSkillBox,
     countSkillBox,
     num,
-    setWantPeople,
+    // setWantPeople,
     arraySKillBox,
     setArraySkillBox,
-    setAaa,
-}: {
+}: // setAaa,
+{
     countSkillBox: any;
     setCountSkillBox: any;
     num: any;
-    setWantPeople: any;
+    // setWantPeople: any;
     arraySKillBox: any;
     setArraySkillBox: any;
-    setAaa: any;
+    // setAaa: any;
 }) => {
     const [groupFocus, setGroupFocus] = useState(false);
     const [skillFocus, setSkillFocus] = useState(false);
@@ -316,7 +316,7 @@ const SkillBox = ({
                             onClick={() => {
                                 setGroupFocus(false);
                                 setSelectGroup(it);
-                                setAaa(it);
+                                // setAaa(it);
                                 setSelectSkill([]);
                                 setSelectLevel("종합 요구 능력치");
                                 setSelectPeople("인원 수");
