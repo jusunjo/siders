@@ -2,6 +2,7 @@ import Editor from "../components/Editor";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import SkillBox from "../components/SkillBox";
+
 // import Calendar from "../components/Calendar";
 
 const StyledCreateProject = styled.div`
@@ -24,7 +25,11 @@ const StyledCreateProject = styled.div`
         line-height: 31px;
         color: #171718;
         padding-bottom: 24px;
-        border-bottom: 1px solid #999999;
+
+        @media (max-width: 466px) {
+            font-size: 18px;
+            padding-bottom: 0px;
+        }
     }
 
     .InputDiv {
@@ -36,10 +41,16 @@ const StyledCreateProject = styled.div`
             display: flex;
             justify-content: space-between;
             width: 100%;
+            @media (max-width: 600px) {
+                flex-direction: column;
+            }
         }
 
         .topInputDiv {
             margin-bottom: 32px;
+            @media (max-width: 600px) {
+                margin-bottom: 0px;
+            }
         }
 
         .text {
@@ -55,6 +66,10 @@ const StyledCreateProject = styled.div`
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            @media (max-width: 600px) {
+                margin-bottom: 20px;
+                width: 100%;
+            }
         }
 
         .inputTag {
@@ -159,10 +174,29 @@ const StyledCreateProject = styled.div`
     .noneToggleCategory {
         display: none;
     }
+
+    .addBtnDiv {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 80px;
+        margin-bottom: 154px;
+        cursor: pointer;
+        .addBtn {
+            background: #171718;
+            border-radius: 8px;
+            width: 104px;
+            height: 48px;
+            line-height: 19px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+        }
+    }
 `;
 
 const CreateProject = () => {
-    const [content, setContent] = useState();
     const [countSkillBox, setCountSkillBox] = useState(1);
     const [arraySKillBox, setArraySkillBox] = useState<any[]>([]);
 
@@ -171,13 +205,38 @@ const CreateProject = () => {
 
     const [groupValue, setGroupValue] = useState("프로젝트/스터디");
     const [termValue, setTermValue] = useState("소요 기간을 선택해 주세요");
-
+    const [content, setContent] = useState();
+    const [title, setTitle] = useState();
+    const [contact, setContact] = useState();
+    const [wantPeople, setWantPeople] = useState<any[]>([]);
+    const [aaa, setAaa] = useState();
     const group = ["프로젝트", "스터디"];
     const term = ["기간 미정", "1~3개월", "4~6개월", "장기"];
+
+    // const ar: any = [...wantPeople, setWantPeople];
 
     useEffect(() => {
         setArraySkillBox((data) => [...data, countSkillBox]);
     }, [countSkillBox]);
+
+    // const body = {
+    //     title: title,
+    //     recruitType: groupValue,
+    //     contact: contact,
+    //     recruitIntroduction: content,
+    //     expectedPeriod: termValue,
+    //     fieldsList: ar,
+    // };
+
+    // console.log(body);
+
+    // const createProject = async () => {
+    //     try {
+    //         await axios.post("/recruitment", body);
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // };
 
     return (
         <StyledCreateProject>
@@ -186,7 +245,7 @@ const CreateProject = () => {
                 <div className="topInputDiv">
                     <div className="topInputGroup title">
                         <div className="text">제목</div>
-                        <input className="inputTag" placeholder="프로젝트/스터디 명을 입력해 주세요" />
+                        <input onChange={(e: any) => setTitle(e.target.value)} className="inputTag" placeholder="프로젝트/스터디 명을 입력해 주세요" />
                     </div>
                     <div className="topInputGroup categorys">
                         <div className="text">모집 유형</div>
@@ -238,7 +297,7 @@ const CreateProject = () => {
                     </div>
                     <div className="bottomInputGroup contact">
                         <div className="text">연락처</div>
-                        <input className="inputTag" placeholder="프로젝트/스터디 명을 입력해 주세요" />
+                        <input onChange={(e: any) => setContact(e.target.value)} className="inputTag" placeholder="프로젝트/스터디 명을 입력해 주세요" />
                     </div>
                 </div>
             </div>
@@ -246,15 +305,23 @@ const CreateProject = () => {
             <div className="recruitmentSubText"> 분야별 모집하고자 하는 팀원의 종합 요구 능력치를 입력할 수 있어요.</div>
 
             {arraySKillBox.map((key) => (
-                <SkillBox key={key} num={key} countSkillBox={countSkillBox} setCountSkillBox={setCountSkillBox} arraySKillBox={arraySKillBox} setArraySkillBox={setArraySkillBox} />
+                <SkillBox
+                    key={key}
+                    num={key}
+                    countSkillBox={countSkillBox}
+                    setCountSkillBox={setCountSkillBox}
+                    arraySKillBox={arraySKillBox}
+                    setArraySkillBox={setArraySkillBox}
+                    setWantPeople={setWantPeople}
+                    setAaa={setAaa}
+                />
             ))}
             <div className="contentText">상세 내용</div>
             <div className="contentSubText">프로젝트/스터디의 추가 정보를 입력해 주세요.</div>
             <Editor setContent={setContent} placeholder={"당신의 프로젝트를 소개해주세요!"} value={content} />
-            {/* <div>
-                <div>임시저장</div>
-                <div>등록하기</div>
-            </div> */}
+            <div className="addBtnDiv">
+                <div className="addBtn">등록하기</div>
+            </div>
         </StyledCreateProject>
     );
 };
