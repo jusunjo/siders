@@ -208,8 +208,8 @@ const CreateProject = () => {
     const [content, setContent] = useState();
     const [title, setTitle] = useState();
     const [contact, setContact] = useState();
-    const [wantPeople, setWantPeople] = useState<any[]>([]);
-    const [aaa, setAaa] = useState();
+    // const [wantPeople, setWantPeople] = useState<any[]>([]);
+    // const [aaa, setAaa] = useState();
     const group = ["프로젝트", "스터디"];
     const term = ["기간 미정", "1~3개월", "4~6개월", "장기"];
 
@@ -219,16 +219,16 @@ const CreateProject = () => {
         setArraySkillBox((data) => [...data, countSkillBox]);
     }, [countSkillBox]);
 
-    // const body = {
-    //     title: title,
-    //     recruitType: groupValue,
-    //     contact: contact,
-    //     recruitIntroduction: content,
-    //     expectedPeriod: termValue,
-    //     fieldsList: ar,
-    // };
+    const body = {
+        title: title,
+        recruitType: groupValue,
+        contact: contact,
+        recruitIntroduction: content,
+        expectedPeriod: termValue,
+        // fieldsList: ar,
+    };
 
-    // console.log(body);
+    console.log(body);
 
     // const createProject = async () => {
     //     try {
@@ -312,8 +312,8 @@ const CreateProject = () => {
                     setCountSkillBox={setCountSkillBox}
                     arraySKillBox={arraySKillBox}
                     setArraySkillBox={setArraySkillBox}
-                    setWantPeople={setWantPeople}
-                    setAaa={setAaa}
+                    // setWantPeople={setWantPeople}
+                    // setAaa={setAaa}
                 />
             ))}
             <div className="contentText">상세 내용</div>
