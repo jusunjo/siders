@@ -90,13 +90,86 @@ const StyledCreateProject = styled.div`
         color: #171718;
         margin-bottom: 5px;
     }
-
     .contentSubText,
     .recruitmentSubText {
+        display: flex;
+        align-items: center;
         margin-bottom: 8px;
         font-size: 14px;
         line-height: 17px;
         color: #767676;
+
+        .info {
+            width: 16px;
+            height: 16px;
+            margin-left: 10px;
+        }
+    }
+
+    .infoDiv {
+        display: flex;
+        position: relative;
+
+        .info {
+            :hover {
+                .infoHover {
+                    display: flex;
+                }
+            }
+        }
+
+        .infoHover {
+            display: none;
+            flex-direction: column;
+            padding: 16px 24px;
+            position: absolute;
+            top: 20px;
+            left: 110px;
+            z-index: 2;
+            width: 264px;
+            height: 195px;
+            background: #ffffff;
+            border: 0.75px solid #767676;
+            border-radius: 8px;
+
+            .mainText {
+                margin-bottom: 8px;
+                font-weight: 900;
+                font-size: 13px;
+                line-height: 16px;
+                color: #171718;
+            }
+
+            .levelText {
+                margin-bottom: 8px;
+                font-weight: 600;
+                font-size: 13px;
+                line-height: 16px;
+                color: #171718;
+            }
+
+            .level {
+                margin-top: 16px;
+            }
+
+            .subText {
+                padding-bottom: 16px;
+                border-bottom: 1px solid #ededed;
+            }
+
+            span {
+                margin-left: 12px;
+            }
+            span,
+            .subText {
+                font-weight: 400;
+                font-size: 13px;
+                line-height: 16px;
+                /* identical to box height */
+
+                color: #555555;
+            }
+        }
     }
 
     .TopSelectForm {
@@ -302,7 +375,25 @@ const CreateProject = () => {
                 </div>
             </div>
             <div className="recruitmentText">모집 인원</div>
-            <div className="recruitmentSubText"> 분야별 모집하고자 하는 팀원의 종합 요구 능력치를 입력할 수 있어요.</div>
+            <div className="infoDiv">
+                <div className="recruitmentSubText">
+                    분야별 모집하고자 하는 팀원의 종합 요구 능력치를 입력할 수 있어요. <img alt="" className="info" src={process.env.PUBLIC_URL + `/assets/info.png`} />
+                </div>
+                <div className="infoHover">
+                    <div className="mainText">기술 스택 노출 기준</div>
+                    <div className="subText">각 분야당 최초 선택 2가지 기술 스택이 메인 화면에 노출 됩니다.</div>
+                    <div className="mainText level">종합 요구 능력치란?</div>
+                    <div className="levelText">
+                        Low <span> 혼자서 문제 해결 불가능 (도움 필요)</span>
+                    </div>
+                    <div className="levelText">
+                        Mid <span> 혼자서 문제 해결 가능 (가르침 불가)</span>
+                    </div>
+                    <div className="levelText">
+                        High <span> 혼자서 문제 해결이 가능할 뿐만 아니라 누군 &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;가를 이끌어 줄 수 있어요.</span>
+                    </div>
+                </div>
+            </div>
 
             {arraySKillBox.map((key) => (
                 <SkillBox

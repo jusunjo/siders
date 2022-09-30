@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledSidersBox = styled.div`
@@ -72,8 +73,10 @@ const StyledSidersBox = styled.div`
 `;
 
 const SidersBox = () => {
+    const navigate = useNavigate();
+
     return (
-        <StyledSidersBox>
+        <StyledSidersBox onClick={() => navigate("/detailpage")}>
             <div className="top">
                 <div className="category">사이드 프로젝트</div>
                 <img alt="vector" className="heart" src={process.env.PUBLIC_URL + `/assets/heart.png`} />
