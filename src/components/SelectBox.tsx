@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const StyledSelectBox = styled.div`
+    @media (max-width: 560px) {
+        display: none;
+    }
+
     height: 48px;
     //props로 width랑 height값을 넘겨주면될듯
     background: #ffffff;

@@ -30,6 +30,10 @@ const StyledMainPage = styled.div`
         font-size: 36px;
         line-height: 140%;
 
+        @media (max-width: 560px) {
+            font-size: 20px;
+        }
+
         .firstIntro,
         .secondIntro {
             text-align: center;
@@ -52,6 +56,10 @@ const StyledMainPage = styled.div`
             border: 1px solid #dbdbdb;
             border-radius: 10px;
             cursor: pointer;
+
+            @media (max-width: 600px) {
+                display: none;
+            }
 
             .categoryText {
                 margin-left: 16px;
