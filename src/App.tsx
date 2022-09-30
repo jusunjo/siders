@@ -8,6 +8,7 @@ import Header from "./components/Header";
 import SetProfile from "./page/SetProfile";
 import { useState } from "react";
 import MyProfile from "./page/MyProfile";
+import DetailPage from "./page/DetailPage";
 
 const StyledApp = styled.div`
     width: 1440px;
@@ -31,6 +32,7 @@ function App() {
                     <Route path="setprofile" element={<SetProfile />} />
                     <Route path="myprofile" element={<MyProfile />} />
                     <Route path="createproject" element={<CreateProject />} />
+                    <Route path="detailpage" element={<DetailPage />} />
                 </Routes>
                 {/* <Footer /> */}
             </StyledApp>
