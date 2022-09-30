@@ -15,6 +15,10 @@ const StyledSidersBox = styled.div`
     padding: 40px 31px;
     cursor: pointer;
 
+    @media (max-width: 400px) {
+        width: 271px;
+    }
+
     .top {
         width: 100%;
 
