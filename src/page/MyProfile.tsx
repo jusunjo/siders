@@ -109,13 +109,7 @@ const MyProfile = () => {
             </div>
 
             <div className="sidersBoxs">
-                <SidersBox />
-                <SidersBox />
-                <SidersBox />
-                <SidersBox />
-                <SidersBox />
-                <SidersBox />
-                <SidersBox />
+                <SidersBox it={it} />
             </div>
         </StyledMyProfile>
     );

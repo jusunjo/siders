@@ -5,7 +5,6 @@ import styled from "styled-components";
 const StyledSidersBox = styled.div`
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
     background: #ffffff;
     border: 0.75px solid #dbdbdb;
     border-radius: 10px;
@@ -76,16 +75,16 @@ const StyledSidersBox = styled.div`
     }
 `;
 
-const SidersBox = () => {
+const SidersBox = ({ it }: { it: any }) => {
     const navigate = useNavigate();
 
     return (
         <StyledSidersBox onClick={() => navigate("/detailpage")}>
             <div className="top">
-                <div className="category">사이드 프로젝트</div>
+                <div className="category">{it.recruitType === "PROJECT" ? "사이드 프로젝트" : "스터디"}</div>
                 <img alt="vector" className="heart" src={process.env.PUBLIC_URL + `/assets/heart.png`} />
             </div>
-            <div className="title">프로젝트의 제목이 들어갈 자리입니다.프로젝트의 제목이 들어갈 자리입니다. 프로젝트의 제목이 들어갈 자리입니다. 프로젝트의 제목이 들어갈 자리입니다. </div>
+            <div className="title">{it.title} </div>
             <div className="person">모집인원 &nbsp;|&nbsp; 총 5명</div>
             <div className="stacks">
                 <img alt="vector" className="stack" src={process.env.PUBLIC_URL + `/assets/symbol.png`} />

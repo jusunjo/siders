@@ -176,15 +176,18 @@ const MainPage = ({ modalOpen, setModalOpen }: { modalOpen: any; setModalOpen: a
     const [selectFilter, setSelectFilter] = useState("all");
     const [selectCategory, setSelectCategory] = useState("모집 유형");
     const [CategoryFocus, setCategoryFocus] = useState(false);
+    const [SidersBoxList, setSidersBoxList] = useState<any[]>();
 
     useEffect(() => {
         const getProject = async () => {
-            const response = await axios.get("/?page=1&size=10");
-            console.log(response);
+            const response = await axios.get("/api/posts?page=1&size=10");
+            setSidersBoxList(response.data.content);
         };
+
         getProject();
     }, []);
 
+    console.log(SidersBoxList);
     return (
         <>
             <StyledMainPage>
@@ -247,13 +250,7 @@ const MainPage = ({ modalOpen, setModalOpen }: { modalOpen: any; setModalOpen: a
                     </div>
                     <SelectBox textArr={["정렬방식(All)", "최신순", "오래된순"]} />
                 </div>
-                <div className="sidersBoxs">
-                    <SidersBox />
-                    <SidersBox />
-                    <SidersBox />
-                    <SidersBox />
-                    <SidersBox />
-                </div>
+                <div className="sidersBoxs">{SidersBoxList && SidersBoxList.map((it: any) => <SidersBox it={it} />)}</div>
             </StyledMainPage>
             {modalOpen && <LoginModal setModalOpen={setModalOpen} />}
         </>
