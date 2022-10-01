@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
 import storageSession from "redux-persist/lib/storage/session";
 import { PersistGate } from "redux-persist/integration/react";
+import HttpsRedirect from "react-https-redirect";
 
 const persistConfig = {
     key: "userInfo",
@@ -36,7 +37,9 @@ root.render(
     <BrowserRouter>
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
-                <App />
+                <HttpsRedirect>
+                    <App />
+                </HttpsRedirect>
             </PersistGate>
         </Provider>
     </BrowserRouter>
