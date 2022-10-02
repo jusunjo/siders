@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import SidersBox from "../components/SidersBox";
+// import SidersBox from "../components/SidersBox";
 
 const StyledMyProfile = styled.div`
     .TopMyProfile {
