@@ -108,9 +108,7 @@ const MyProfile = () => {
                 </div>
             </div>
 
-            <div className="sidersBoxs">
-                <SidersBox it={it} />
-            </div>
+            <div className="sidersBoxs">{/* <SidersBox it={it} /> */}</div>
         </StyledMyProfile>
     );
 };
