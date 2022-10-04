@@ -180,8 +180,13 @@ const MainPage = ({ modalOpen, setModalOpen }: { modalOpen: any; setModalOpen: a
 
     useEffect(() => {
         const getProject = async () => {
-            const response = await axios.get("/api/posts?page=1&size=10");
-            setSidersBoxList(response.data.content);
+            try {
+                const response = await axios.get("/api/posts?page=1&size=10");
+
+                setSidersBoxList(response.data.content);
+            } catch (e) {
+                console.log(e);
+            }
         };
 
         getProject();
