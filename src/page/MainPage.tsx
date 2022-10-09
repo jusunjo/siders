@@ -255,7 +255,7 @@ const MainPage = ({ modalOpen, setModalOpen }: { modalOpen: any; setModalOpen: a
                     </div>
                     <SelectBox textArr={["정렬방식(All)", "최신순", "오래된순"]} />
                 </div>
-                <div className="sidersBoxs">{SidersBoxList && SidersBoxList.map((it: any) => <SidersBox it={it} />)}</div>
+                <div className="sidersBoxs">{SidersBoxList && SidersBoxList.map((it: any) => <SidersBox key={it.id} it={it} />)}</div>
             </StyledMainPage>
             {modalOpen && <LoginModal setModalOpen={setModalOpen} />}
         </>

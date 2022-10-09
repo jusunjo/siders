@@ -79,23 +79,8 @@ const StyledSidersBox = styled.div`
 const SidersBox = ({ it }: { it: any }) => {
     const navigate = useNavigate();
 
-    // const [detailInfo, setDetailInfo] = useState();
-
-    // console.log(it.id);
-
-    // useEffect(() => {
-    //     const getProject = async () => {
-    //         const response = await axios.get(`/api/post/${it.id}`);
-    //         setDetailInfo(response.data);
-    //     };
-
-    //     getProject();
-    // }, []);
-
-    // console.log(detailInfo);
-
     return (
-        <StyledSidersBox onClick={() => navigate("/detailpage")}>
+        <StyledSidersBox onClick={() => navigate(`/detailpage/${it.id}`)}>
             <div className="top">
                 <div className="category">{it.recruitType === "PROJECT" ? "사이드 프로젝트" : "스터디"}</div>
                 <img alt="vector" className="heart" src={process.env.PUBLIC_URL + `/assets/heart.png`} />

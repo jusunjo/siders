@@ -28,11 +28,11 @@ function App() {
                 <Header setModalOpen={setModalOpen} />
                 <Routes>
                     <Route path="/" element={<MainPage modalOpen={modalOpen} setModalOpen={setModalOpen} />} />
-                    <Route path="createproject" element={<CreateProject />} />
-                    <Route path="setprofile" element={<SetProfile />} />
-                    <Route path="myprofile" element={<MyProfile />} />
-                    <Route path="createproject" element={<CreateProject />} />
-                    <Route path="detailpage" element={<DetailPage />} />
+                    <Route path="/createproject" element={<CreateProject />} />
+                    <Route path="/setprofile" element={<SetProfile />} />
+                    <Route path="/myprofile" element={<MyProfile />} />
+                    <Route path="/createproject" element={<CreateProject />} />
+                    <Route path="/detailpage/:id" element={<DetailPage />} />
                 </Routes>
                 {/* <Footer /> */}
             </StyledApp>

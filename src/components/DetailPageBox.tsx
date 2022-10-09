@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import { FieldsListData } from "../interface/DetailPageType";
 
 const StyledDetailPageBox = styled.div`
+    margin-right: 18px;
     border: 1px solid #dbdbdb;
     border-radius: 10px;
     width: 220px;
@@ -90,19 +92,20 @@ const StyledDetailPageBox = styled.div`
     }
 `;
 
-const DetailPageBox = () => {
+const DetailPageBox = ({ it }: { it: FieldsListData }) => {
+    console.log(it);
     return (
         <StyledDetailPageBox>
             <div className="boxPadding">
-                <div className="job">디자인</div>
+                <div className="job">{it.fieldsName === "프론트엔드" ? "프론트" : it.fieldsName === "백엔드" ? "백엔드" : "디자인"}</div>
                 <div className="skillsAndPeople">
                     <div className="skills">
                         <div className="skillsText">종합 요구 능력치</div>
-                        <div className="skillsValue">Low</div>
+                        <div className="skillsValue">{it.totalAbility}</div>
                     </div>
                     <div className="people">
                         <div className="peopleText">인원</div>
-                        <div className="peopleValue">0</div>
+                        <div className="peopleValue">{it.recruitCount}</div>
                     </div>
                 </div>
                 <div className="stacks">
