@@ -2,6 +2,7 @@ import Editor from "../components/Editor";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import SkillBox from "../components/SkillBox";
+import axios from "axios";
 
 // import Calendar from "../components/Calendar";
 
@@ -292,24 +293,31 @@ const CreateProject = () => {
         setArraySkillBox((data) => [...data, countSkillBox]);
     }, [countSkillBox]);
 
+    console.log(countSkillBox);
+
     const body = {
         title: title,
-        recruitType: groupValue,
-        contact: contact,
+        recruitType: "study",
+        contact: "https://open.kakao.com/o/suJvqKxe",
         recruitIntroduction: content,
         expectedPeriod: termValue,
-        // fieldsList: ar,
+        fieldsList: [
+            {
+                fieldsName: "백엔드",
+                recruitCount: 1,
+                totalAbility: "HIGH",
+                stacks: [{ stackName: "spring" }, { stackName: "mysql" }],
+            },
+        ],
     };
 
-    console.log(body);
-
-    // const createProject = async () => {
-    //     try {
-    //         await axios.post("/recruitment", body);
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // };
+    const addWriting = async () => {
+        try {
+            await axios.post("/recruitment", body);
+        } catch (e) {
+            console.log(e);
+        }
+    };
 
     return (
         <StyledCreateProject>
@@ -370,7 +378,7 @@ const CreateProject = () => {
                     </div>
                     <div className="bottomInputGroup contact">
                         <div className="text">연락처</div>
-                        <input onChange={(e: any) => setContact(e.target.value)} className="inputTag" placeholder="프로젝트/스터디 명을 입력해 주세요" />
+                        <input onChange={(e: any) => setContact(e.target.value)} className="inputTag" placeholder="오픈 채팅 링크 또는 이메일을 기입해 주세요" />
                     </div>
                 </div>
             </div>
@@ -394,24 +402,54 @@ const CreateProject = () => {
                     </div>
                 </div>
             </div>
+            {/* <SkillBox
+                key={1}
+                num={1}
+                countSkillBox={countSkillBox}
+                setCountSkillBox={setCountSkillBox}
+                arraySKillBox={arraySKillBox}
+                setArraySkillBox={setArraySkillBox}
+              
+            />
+            <SkillBox
+                key={2}
+                num={2}
+                countSkillBox={countSkillBox}
+                setCountSkillBox={setCountSkillBox}
+                arraySKillBox={arraySKillBox}
+                setArraySkillBox={setArraySkillBox}
+            
+            />
+            <SkillBox
+                key={3}
+                num={3}
+                countSkillBox={countSkillBox}
+                setCountSkillBox={setCountSkillBox}
+                arraySKillBox={arraySKillBox}
+                setArraySkillBox={setArraySkillBox}
+               
+            /> */}
 
-            {arraySKillBox.map((key) => (
-                <SkillBox
-                    key={key}
-                    num={key}
-                    countSkillBox={countSkillBox}
-                    setCountSkillBox={setCountSkillBox}
-                    arraySKillBox={arraySKillBox}
-                    setArraySkillBox={setArraySkillBox}
-                    // setWantPeople={setWantPeople}
-                    // setAaa={setAaa}
-                />
-            ))}
+            {arraySKillBox &&
+                arraySKillBox.map((key) => (
+                    <SkillBox
+                        key={key}
+                        num={key}
+                        countSkillBox={countSkillBox}
+                        setCountSkillBox={setCountSkillBox}
+                        arraySKillBox={arraySKillBox}
+                        setArraySkillBox={setArraySkillBox}
+                        // setWantPeople={setWantPeople}
+                        // setAaa={setAaa}
+                    />
+                ))}
             <div className="contentText">상세 내용</div>
             <div className="contentSubText">프로젝트/스터디의 추가 정보를 입력해 주세요.</div>
             <Editor setContent={setContent} placeholder={"당신의 프로젝트를 소개해주세요!"} value={content} />
             <div className="addBtnDiv">
-                <div className="addBtn">등록하기</div>
+                <div onClick={addWriting} className="addBtn">
+                    등록하기
+                </div>
             </div>
         </StyledCreateProject>
     );

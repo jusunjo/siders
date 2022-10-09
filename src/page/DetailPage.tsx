@@ -165,8 +165,6 @@ const StyledDetailPage = styled.div`
     }
 `;
 
-type Info = { title: string };
-
 const DetailPage = () => {
     const [detailInfo, setDetailInfo] = useState<WritingInfo>();
 
