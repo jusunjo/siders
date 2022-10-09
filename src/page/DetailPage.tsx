@@ -11,6 +11,19 @@ const StyledDetailPage = styled.div`
         width: 90vw;
     }
 
+    @media (max-width: 650px) {
+        .categoryAndTermDiv {
+            display: flex;
+            flex-direction: column;
+            .category {
+                margin-bottom: 16px;
+            }
+        }
+        .contact {
+            margin-top: 16px;
+        }
+    }
+
     .title {
         margin-bottom: 28px;
         font-weight: 700;
@@ -64,9 +77,78 @@ const StyledDetailPage = styled.div`
     .basicInfo {
         margin-bottom: 64px;
 
+        .basicInfoText {
+            margin-bottom: 24px;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 21px;
+            color: #171718;
+        }
+
+        .categoryAndTermDiv {
+            display: flex;
+        }
+
+        .contact,
+        .term,
+        .category {
+            display: flex;
+        }
+
+        .contact {
+            margin-bottom: 24px;
+            margin-top: 22px;
+            display: flex;
+            align-items: center;
+
+            @media (max-width: 650px) {
+                margin-top: 16px;
+            }
+
+            .kakaoLink {
+                margin-left: 8px;
+
+                width: 24px;
+                height: 24px;
+            }
+        }
+
+        .text {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 19px;
+            width: 84px;
+            color: #767676;
+        }
+
+        .categoryValue {
+            margin-right: 181px;
+
+            @media (max-width: 650px) {
+                margin-right: 0px;
+            }
+        }
+
+        .value {
+            line-height: 19px;
+            color: #171718;
+        }
+
+        .peopleText {
+            margin-bottom: 16px;
+            line-height: 19px;
+            color: #767676;
+        }
+
         .DetailPageBoxs {
             display: flex;
             justify-content: space-between;
+        }
+
+        @media (max-width: 770px) {
+            .DetailPageBoxs {
+                flex-direction: column;
+            }
         }
     }
 
@@ -100,6 +182,23 @@ const DetailPage = () => {
                 </div>
             </div>
             <div className="basicInfo">
+                <div className="basicInfoText">기본 정보</div>
+                <div className="categoryAndTermDiv">
+                    <div className="category">
+                        <div className="text categoryText">모집 유형</div>
+                        <div className="value categoryValue"> 사이드 프로젝트</div>
+                    </div>
+                    <div className="term">
+                        <div className="text termText">소요 기간</div>
+                        <div className="value termValue">1~2개월</div>
+                    </div>
+                </div>
+                <div className="contact">
+                    <div className="text contactText">연락처</div>
+                    <div className="value contactValue"> 카카오톡 오픈채팅</div>
+                    <img alt="kakaoLink" className="kakaoLink" src={process.env.PUBLIC_URL + `/assets/kakaoLink.png`} />
+                </div>
+                <div className="peopleText">모집인원</div>
                 <div className="DetailPageBoxs">
                     <DetailPageBox />
                     <DetailPageBox />

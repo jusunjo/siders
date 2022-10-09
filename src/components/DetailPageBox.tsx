@@ -10,6 +10,19 @@ const StyledDetailPageBox = styled.div`
     flex-direction: column;
     justify-content: center;
 
+    @media (max-width: 770px) {
+        width: 100%;
+        height: 168px;
+        margin-bottom: 16px;
+
+        .skills,
+        .people,
+        .stacks {
+            display: flex;
+            align-items: center;
+        }
+    }
+
     .boxPadding {
         margin-left: 16px;
 
@@ -29,6 +42,15 @@ const StyledDetailPageBox = styled.div`
             margin-bottom: 16px;
             display: flex;
 
+            @media (max-width: 770px) {
+                flex-direction: column;
+                margin-bottom: 8px;
+
+                .skills {
+                    margin-bottom: 8px;
+                }
+            }
+
             .skills {
                 margin-right: 24px;
             }
@@ -39,6 +61,11 @@ const StyledDetailPageBox = styled.div`
             line-height: 19px;
             color: #767676;
             margin-bottom: 8px;
+            @media (max-width: 770px) {
+                margin-right: 16px;
+
+                margin-bottom: 0px;
+            }
         }
 
         .skillsValue,
@@ -51,6 +78,14 @@ const StyledDetailPageBox = styled.div`
             width: 32px;
             height: 32px;
             margin-right: 8px;
+        }
+        @media (max-width: 770px) {
+            .peopleText {
+                margin-right: 93px;
+            }
+            .stacksText {
+                margin-right: 60px;
+            }
         }
     }
 `;
