@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import DetailPageBox from "../components/DetailPageBox";
 
 const StyledDetailPage = styled.div`
     width: 708px;
@@ -62,8 +63,11 @@ const StyledDetailPage = styled.div`
     }
     .basicInfo {
         margin-bottom: 64px;
-        border: 1px solid black;
-        height: 400px;
+
+        .DetailPageBoxs {
+            display: flex;
+            justify-content: space-between;
+        }
     }
 
     .content {
@@ -95,7 +99,13 @@ const DetailPage = () => {
                     <div className="Btn correctionBtn">글수정</div>
                 </div>
             </div>
-            <div className="basicInfo">구상중</div>
+            <div className="basicInfo">
+                <div className="DetailPageBoxs">
+                    <DetailPageBox />
+                    <DetailPageBox />
+                    <DetailPageBox />
+                </div>
+            </div>
             <div className="content">
                 <div className="contentTitle">소개</div>
                 <div>

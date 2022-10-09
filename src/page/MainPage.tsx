@@ -181,7 +181,7 @@ const MainPage = ({ modalOpen, setModalOpen }: { modalOpen: any; setModalOpen: a
     useEffect(() => {
         const getProject = async () => {
             try {
-                const response = await axios.get("/api/posts?page=1&size=10");
+                const response = await axios.get("/api/posts?page=1&size=30");
 
                 setSidersBoxList(response.data.content);
             } catch (e) {
