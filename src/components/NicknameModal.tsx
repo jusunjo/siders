@@ -1,4 +1,6 @@
+import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledLoginModal = styled.div`
@@ -93,10 +95,25 @@ const StyledLoginModal = styled.div`
     }
 `;
 
-const NicknameModal = ({ setModalOpen }: { setModalOpen: any }) => {
+const NicknameModal = ({ setCreateNickname }: { setCreateNickname: any }) => {
+    const navigate = useNavigate();
+
+    const [getNickname, setGetNickname] = useState();
+
+    console.log(getNickname);
+
+    const createNickname = async () => {
+        try {
+            await axios.post("/api/signup", { name: getNickname });
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
     // 모달 끄기 (X버튼 onClick 이벤트 핸들러)
     const closeModal = () => {
-        setModalOpen(false);
+        setCreateNickname(false);
+        navigate("/");
     };
 
     // 모달 외부 클릭시 끄기 처리
@@ -108,7 +125,7 @@ const NicknameModal = ({ setModalOpen }: { setModalOpen: any }) => {
         const handler = (e: any) => {
             // mousedown 이벤트가 발생한 영역이 모달창이 아닐 때, 모달창 제거 처리
             if (modalRef.current && !modalRef.current.contains(e.target)) {
-                setModalOpen(false);
+                setCreateNickname(false);
             }
         };
 
@@ -129,8 +146,10 @@ const NicknameModal = ({ setModalOpen }: { setModalOpen: any }) => {
                 <img onClick={closeModal} alt="close" className="close" src={process.env.PUBLIC_URL + `/assets/close.png`} />
                 <div className="loginText">프로필 설정</div>
                 <div className="sideText">닉네임 설정만 하면 가입 완료!</div>
-                <input className="createNickname" placeholder="닉네임을 입력해주세요" />
-                <div className="completeBtn">가입 완료</div>
+                <input onChange={(e: any) => setGetNickname(e.target.value)} className="createNickname" placeholder="닉네임을 입력해주세요" />
+                <div onClick={createNickname} className="completeBtn">
+                    가입 완료
+                </div>
             </div>
         </StyledLoginModal>
     );

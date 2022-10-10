@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-
 import LoginModal from "../components/LoginModal";
-
+import { useLocation } from "react-router-dom";
 import SelectBox from "../components/SelectBox";
 import SidersBox from "../components/SidersBox";
+import NicknameModal from "../components/NicknameModal";
 
 const StyledMainPage = styled.div`
     position: relative;
@@ -177,6 +177,9 @@ const MainPage = ({ modalOpen, setModalOpen }: { modalOpen: any; setModalOpen: a
     const [selectCategory, setSelectCategory] = useState("모집 유형");
     const [CategoryFocus, setCategoryFocus] = useState(false);
     const [SidersBoxList, setSidersBoxList] = useState<any[]>();
+    const [createNickname, setCreateNickname] = useState(false);
+
+    const location = useLocation();
 
     useEffect(() => {
         const getProject = async () => {
@@ -192,7 +195,6 @@ const MainPage = ({ modalOpen, setModalOpen }: { modalOpen: any; setModalOpen: a
         getProject();
     }, []);
 
-    console.log(SidersBoxList);
     return (
         <>
             <StyledMainPage>
@@ -258,6 +260,7 @@ const MainPage = ({ modalOpen, setModalOpen }: { modalOpen: any; setModalOpen: a
                 <div className="sidersBoxs">{SidersBoxList && SidersBoxList.map((it: any) => <SidersBox key={it.id} it={it} />)}</div>
             </StyledMainPage>
             {modalOpen && <LoginModal setModalOpen={setModalOpen} />}
+            {String(location.search) === `?loginSuccess=false` && <NicknameModal setCreateNickname={setCreateNickname} />}
         </>
     );
 };

@@ -287,29 +287,26 @@ const CreateProject = () => {
     const group = ["프로젝트", "스터디"];
     const term = ["기간 미정", "1~3개월", "4~6개월", "장기"];
 
-    // const ar: any = [...wantPeople, setWantPeople];
+    const [data1, setData1] = useState();
+    const [data2, setData2] = useState();
+    const [data3, setData3] = useState();
 
     useEffect(() => {
         setArraySkillBox((data) => [...data, countSkillBox]);
     }, [countSkillBox]);
 
-    console.log(countSkillBox);
+    console.log(countSkillBox, arraySKillBox);
 
     const body = {
         title: title,
-        recruitType: "study",
-        contact: "https://open.kakao.com/o/suJvqKxe",
+        recruitType: groupValue,
+        contact: contact,
         recruitIntroduction: content,
         expectedPeriod: termValue,
-        fieldsList: [
-            {
-                fieldsName: "백엔드",
-                recruitCount: 1,
-                totalAbility: "HIGH",
-                stacks: [{ stackName: "spring" }, { stackName: "mysql" }],
-            },
-        ],
+        fieldsList: [data1, data2, data3],
     };
+
+    console.log(body);
 
     const addWriting = async () => {
         try {
@@ -402,45 +399,21 @@ const CreateProject = () => {
                     </div>
                 </div>
             </div>
-            {/* <SkillBox
-                key={1}
-                num={1}
-                countSkillBox={countSkillBox}
-                setCountSkillBox={setCountSkillBox}
-                arraySKillBox={arraySKillBox}
-                setArraySkillBox={setArraySkillBox}
-              
-            />
-            <SkillBox
-                key={2}
-                num={2}
-                countSkillBox={countSkillBox}
-                setCountSkillBox={setCountSkillBox}
-                arraySKillBox={arraySKillBox}
-                setArraySkillBox={setArraySkillBox}
-            
-            />
-            <SkillBox
-                key={3}
-                num={3}
-                countSkillBox={countSkillBox}
-                setCountSkillBox={setCountSkillBox}
-                arraySKillBox={arraySKillBox}
-                setArraySkillBox={setArraySkillBox}
-               
-            /> */}
+            {/* 
+            <SkillBox key={1} setData={setData1} num={1} countSkillBox={countSkillBox} setCountSkillBox={setCountSkillBox} arraySKillBox={arraySKillBox} setArraySkillBox={setArraySkillBox} /> */}
+            {/* <SkillBox key={2} setData={setData2} num={2} countSkillBox={countSkillBox} setCountSkillBox={setCountSkillBox} arraySKillBox={arraySKillBox} setArraySkillBox={setArraySkillBox} />
+            <SkillBox key={2} setData={setData3} num={2} countSkillBox={countSkillBox} setCountSkillBox={setCountSkillBox} arraySKillBox={arraySKillBox} setArraySkillBox={setArraySkillBox} /> */}
 
             {arraySKillBox &&
                 arraySKillBox.map((key) => (
                     <SkillBox
                         key={key}
+                        setData={key === 1 ? setData1 : key === 2 ? setData2 : setData3}
                         num={key}
                         countSkillBox={countSkillBox}
                         setCountSkillBox={setCountSkillBox}
                         arraySKillBox={arraySKillBox}
                         setArraySkillBox={setArraySkillBox}
-                        // setWantPeople={setWantPeople}
-                        // setAaa={setAaa}
                     />
                 ))}
             <div className="contentText">상세 내용</div>
