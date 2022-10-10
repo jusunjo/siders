@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const StyledSkillBox = styled.div`
@@ -221,18 +221,16 @@ const SkillBox = ({
     setCountSkillBox,
     countSkillBox,
     num,
-    // setWantPeople,
+    setData,
     arraySKillBox,
     setArraySkillBox,
-}: // setAaa,
-{
+}: {
     countSkillBox: any;
     setCountSkillBox: any;
     num: any;
-    // setWantPeople: any;
+    setData: any;
     arraySKillBox: any;
     setArraySkillBox: any;
-    // setAaa: any;
 }) => {
     const [groupFocus, setGroupFocus] = useState(false);
     const [skillFocus, setSkillFocus] = useState(false);
@@ -249,28 +247,18 @@ const SkillBox = ({
     const BackendSkill = ["Java", "NodeJs", "Spring"];
     const designSkill = ["Figma", "Zeplin", "Sketch", "XD", "Illustrator", "Photoshop"];
     const levelValue = ["Low", "Mid", "High"];
-    const peopleValue = ["1명", "2명", "3명", "4명", "5명", "6명", "7명", "8명", "9명"];
+    const peopleValue = [1, 2, 3, 4, 5, 6];
 
     const set = new Set(selectSkill);
 
-    // useEffect(() => {
-    //     setWantPeople({
-    //         fieldsName: selectGroup,
-    //         recruitCount: 1,
-    //         totalAbility: selectLevel,
-    //         stacks: [
-    //             {
-    //                 stackName: "백엔드스택1",
-    //             },
-    //             {
-    //                 stackName: "백엔드스택2",
-    //             },
-    //             {
-    //                 stackName: "백엔드스택3",
-    //             },
-    //         ],
-    //     });
-    // }, [selectGroup, selectLevel]);
+    useEffect(() => {
+        setData({
+            fieldsName: selectGroup,
+            recruitCount: selectPeople,
+            totalAbility: selectLevel,
+            stacks: selectSkill.map((it) => ({ stackName: it })),
+        });
+    }, [selectGroup, selectSkill, selectLevel, selectPeople]);
 
     const addSkill = (it: any) => {
         if (set.size < 5) {
@@ -295,6 +283,7 @@ const SkillBox = ({
 
     const deleteSkillBox = () => {
         if (arraySKillBox.length > 1) {
+            setData();
             const newData = arraySKillBox.filter((data: any) => data !== num);
             setArraySkillBox(newData);
         } else {
@@ -316,7 +305,6 @@ const SkillBox = ({
                             onClick={() => {
                                 setGroupFocus(false);
                                 setSelectGroup(it);
-                                // setAaa(it);
                                 setSelectSkill([]);
                                 setSelectLevel("종합 요구 능력치");
                                 setSelectPeople("인원 수");
@@ -399,7 +387,7 @@ const SkillBox = ({
                         <img alt="vector" className="vector" src={process.env.PUBLIC_URL + `/assets/Vector.png`} />
                     </div>
                     <div className={peopleFocus ? "toggleCategory" : "noneToggleCategory"}>
-                        {peopleValue.map((it: string) => (
+                        {peopleValue.map((it: any) => (
                             <div
                                 key={it}
                                 onClick={() => {

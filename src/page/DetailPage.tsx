@@ -1,5 +1,9 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import DetailPageBox from "../components/DetailPageBox";
+import { FieldsListData, WritingInfo } from "../interface/DetailPageType";
 
 const StyledDetailPage = styled.div`
     width: 708px;
@@ -8,6 +12,19 @@ const StyledDetailPage = styled.div`
 
     @media (max-width: 800px) {
         width: 90vw;
+    }
+
+    @media (max-width: 650px) {
+        .categoryAndTermDiv {
+            display: flex;
+            flex-direction: column;
+            .category {
+                margin-bottom: 16px;
+            }
+        }
+        .contact {
+            margin-top: 16px;
+        }
     }
 
     .title {
@@ -62,8 +79,79 @@ const StyledDetailPage = styled.div`
     }
     .basicInfo {
         margin-bottom: 64px;
-        border: 1px solid black;
-        height: 400px;
+
+        .basicInfoText {
+            margin-bottom: 24px;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 21px;
+            color: #171718;
+        }
+
+        .categoryAndTermDiv {
+            display: flex;
+        }
+
+        .contact,
+        .term,
+        .category {
+            display: flex;
+        }
+
+        .contact {
+            margin-bottom: 24px;
+            margin-top: 22px;
+            display: flex;
+            align-items: center;
+
+            @media (max-width: 650px) {
+                margin-top: 16px;
+            }
+
+            .kakaoLink {
+                margin-left: 8px;
+
+                width: 24px;
+                height: 24px;
+            }
+        }
+
+        .text {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 19px;
+            width: 84px;
+            color: #767676;
+        }
+
+        .categoryValue {
+            margin-right: 181px;
+
+            @media (max-width: 650px) {
+                margin-right: 0px;
+            }
+        }
+
+        .value {
+            line-height: 19px;
+            color: #171718;
+        }
+
+        .peopleText {
+            margin-bottom: 16px;
+            line-height: 19px;
+            color: #767676;
+        }
+
+        .DetailPageBoxs {
+            display: flex;
+        }
+
+        @media (max-width: 770px) {
+            .DetailPageBoxs {
+                flex-direction: column;
+            }
+        }
     }
 
     .content {
@@ -78,15 +166,36 @@ const StyledDetailPage = styled.div`
 `;
 
 const DetailPage = () => {
+    const [detailInfo, setDetailInfo] = useState<WritingInfo>();
+
+    const { id } = useParams();
+
+    useEffect(() => {
+        const getDetailInfo = async () => {
+            try {
+                const response = await axios.get(`/api/post/${id}`);
+                setDetailInfo(response.data);
+            } catch (e) {
+                console.log(e);
+            }
+        };
+
+        getDetailInfo();
+    }, []);
+
+    const moveKakaoLink = () => {};
+
+    console.log(detailInfo);
+
     return (
         <StyledDetailPage>
-            <div className="title">프로젝트 제목이 들어갈 자리입니다.</div>
+            <div className="title">{detailInfo && detailInfo.title}</div>
             <div className="userInfoDiv">
                 <div className="userInfoLeft">
                     <img alt="person" className="person" src={process.env.PUBLIC_URL + `/assets/person.png`} />
                     <div className="nickNameAndDateDiv">
                         <div className="nickName">작성자 닉네임</div>
-                        <div className="date">2022. 04. 18</div>
+                        <div className="date">{detailInfo && detailInfo.createdDate}</div>
                     </div>
                 </div>
                 <div className="userInfoRight">
@@ -95,15 +204,29 @@ const DetailPage = () => {
                     <div className="Btn correctionBtn">글수정</div>
                 </div>
             </div>
-            <div className="basicInfo">구상중</div>
+            <div className="basicInfo">
+                <div className="basicInfoText">기본 정보</div>
+                <div className="categoryAndTermDiv">
+                    <div className="category">
+                        <div className="text categoryText">모집 유형</div>
+                        <div className="value categoryValue"> {detailInfo && detailInfo.recruitType === "PROJECT" ? "사이드 프로젝트" : "스터디"}</div>
+                    </div>
+                    <div className="term">
+                        <div className="text termText">소요 기간</div>
+                        <div className="value termValue">{detailInfo && detailInfo.expectedPeriod}</div>
+                    </div>
+                </div>
+                <div className="contact">
+                    <div className="text contactText">연락처</div>
+                    <div className="value contactValue"> 카카오톡 오픈채팅</div>
+                    <img onClick={moveKakaoLink} alt="kakaoLink" className="kakaoLink" src={process.env.PUBLIC_URL + `/assets/kakaoLink.png`} />
+                </div>
+                <div className="peopleText">모집인원</div>
+                <div className="DetailPageBoxs">{detailInfo && detailInfo.fieldsList.map((it) => <DetailPageBox it={it} />)}</div>
+            </div>
             <div className="content">
                 <div className="contentTitle">소개</div>
-                <div>
-                    예시글 입니당 안녕하세요.저희는 취업을 위해, 협업 경험을 위한 프로젝트를 계획하고 있습니다. 최종적인 목표는 서로간 협업이며, 서비스 기획부터 가능하면 배포까지 함께 하실
-                    **프론트엔드 개발자**를 모집하려고 합니다. 너무 거창한 것을 만들기 보다는 경험을 쌓는 데 목적을 두고있기 때문에, 프로젝트 소요 기간은 2달로 예상하고 있습니다. 우선은 온라인으로
-                    진행 해 볼 예정이며, 필요 시 오프라인 모임도 고려하고 있습니다. - 모임 지역은 서울 ~ 경기도권으로 생각 중입니다. 저희도 초보이기 때문에 이 부분 감안하시고 지원해주시면 좋을 것
-                    같습니다.
-                </div>
+                <div>{detailInfo && detailInfo.recruitIntroduction}</div>
             </div>
         </StyledDetailPage>
     );

@@ -166,11 +166,15 @@ const LoginModal = ({ setModalOpen }: { setModalOpen: any }) => {
                 <div className="sideText">사이더스에서 직접 프로젝트를 생성해보세요!</div>
                 <div className="socialBox google">
                     <img alt="google" className="googleImg" src={process.env.PUBLIC_URL + `/assets/Google.png`} />
-                    <div>구글로 시작하기&nbsp;&nbsp;&nbsp;</div>
+                    <div>
+                        <a href="http://ec2-3-35-102-195.ap-northeast-2.compute.amazonaws.com/oauth2/authorization/google">구글</a>&nbsp;&nbsp;&nbsp;
+                    </div>
                 </div>
                 <div className="socialBox github">
                     <img alt="google" className="githubImg" src={process.env.PUBLIC_URL + `/assets/Github.png`} />
-                    <div>깃허브로 시작하기</div>
+                    <div>
+                        <a href="http://ec2-3-35-102-195.ap-northeast-2.compute.amazonaws.com/oauth2/authorization/github">깃허브</a>
+                    </div>
                 </div>
                 <div className="socialBox kakao">
                     <img alt="google" className="kakaoImg" src={process.env.PUBLIC_URL + `/assets/Kakao.png`} />

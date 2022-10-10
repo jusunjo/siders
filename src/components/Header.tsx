@@ -120,7 +120,7 @@ const StyledHeader = styled.div`
 `;
 
 const Header = ({ setModalOpen }: { setModalOpen: any }) => {
-    const [isLogin, setIsLogin] = useState(true);
+    const [isLogin, setIsLogin] = useState(false);
     const [CategoryFocus, setCategoryFocus] = useState(false);
 
     const navigate = useNavigate();
