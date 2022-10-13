@@ -104,7 +104,9 @@ const NicknameModal = ({ setCreateNickname }: { setCreateNickname: any }) => {
 
     const createNickname = async () => {
         try {
-            await axios.post("/api/signup", { name: getNickname });
+            const aaa = await axios.get("/api/signup/test");
+
+            console.log(aaa);
         } catch (e) {
             console.log(e);
         }
