@@ -173,7 +173,7 @@ const DetailPage = () => {
     useEffect(() => {
         const getDetailInfo = async () => {
             try {
-                const response = await axios.get(`/api/post/${id}`);
+                const response = await axios.get(`http://ec2-3-35-102-195.ap-northeast-2.compute.amazonaws.com/api/post/${id}`);
                 setDetailInfo(response.data);
             } catch (e) {
                 console.log(e);
