@@ -51,6 +51,5 @@
     },
     "devDependencies": {
         "@types/styled-components": "^5.1.26"
-    },
-    "proxy": "http://ec2-3-35-102-195.ap-northeast-2.compute.amazonaws.com"
+    }
 }
