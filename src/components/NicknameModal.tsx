@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledLoginModal = styled.div`
@@ -98,13 +98,18 @@ const StyledLoginModal = styled.div`
 const NicknameModal = ({ setCreateNickname }: { setCreateNickname: any }) => {
     const navigate = useNavigate();
 
-    const [getNickname, setGetNickname] = useState();
+    const location = useLocation();
 
-    console.log(getNickname);
+    const tokenValue = location.search.split("token=")[1];
+
+    console.log(tokenValue);
+
+    const [getNickname, setGetNickname] = useState();
 
     const createNickname = async () => {
         try {
-            await axios.post("http://ec2-3-35-102-195.ap-northeast-2.compute.amazonaws.com/api/signup", { name: getNickname });
+            const aaa = await axios.post("http://ec2-3-35-102-195.ap-northeast-2.compute.amazonaws.com/api/signup", { name: "sefd" }, { headers: { Authorization: `Bearer ${tokenValue}` } });
+            console.log(aaa);
         } catch (e) {
             console.log(e);
         }

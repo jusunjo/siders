@@ -260,7 +260,7 @@ const MainPage = ({ modalOpen, setModalOpen }: { modalOpen: any; setModalOpen: a
                 <div className="sidersBoxs">{SidersBoxList && SidersBoxList.map((it: any) => <SidersBox key={it.id} it={it} />)}</div>
             </StyledMainPage>
             {modalOpen && <LoginModal setModalOpen={setModalOpen} />}
-            {String(location.search) === `?loginSuccess=false` && <NicknameModal setCreateNickname={setCreateNickname} />}
+            {String(location.search).includes(`?loginSuccess=false`) && <NicknameModal setCreateNickname={setCreateNickname} />}
         </>
     );
 };

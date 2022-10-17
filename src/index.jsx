@@ -37,9 +37,7 @@ root.render(
     <BrowserRouter>
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
-                <HttpsRedirect>
-                    <App />
-                </HttpsRedirect>
+                <App />
             </PersistGate>
         </Provider>
     </BrowserRouter>
