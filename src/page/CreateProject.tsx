@@ -310,7 +310,11 @@ const CreateProject = () => {
 
     const addWriting = async () => {
         try {
-            await axios.post("/recruitment", body);
+            await axios.post("http://ec2-3-35-102-195.ap-northeast-2.compute.amazonaws.com/api/recruitment", body, {
+                headers: {
+                    Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDA4NjYwMTA3NjY3NzcwMzIwMDQiLCJhdXRob3JpdHkiOiJST0xFX1VTRVIiLCJleHAiOjE2NjYwODEzMTJ9.WabILdr7V1EOP74QYvczSlzL-fZs-ZGM43DaxwFuCQ_rIZcrMhg1MIlsBiSUq4eRsams7RnzqM3FsdBLf0eRcA`,
+                },
+            });
         } catch (e) {
             console.log(e);
         }

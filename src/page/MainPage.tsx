@@ -6,6 +6,8 @@ import { useLocation } from "react-router-dom";
 import SelectBox from "../components/SelectBox";
 import SidersBox from "../components/SidersBox";
 import NicknameModal from "../components/NicknameModal";
+import { getUserInformation } from "../modules/userInfo";
+import { useDispatch, useSelector } from "react-redux";
 
 const StyledMainPage = styled.div`
     position: relative;
@@ -179,7 +181,16 @@ const MainPage = ({ modalOpen, setModalOpen }: { modalOpen: any; setModalOpen: a
     const [SidersBoxList, setSidersBoxList] = useState<any[]>();
     const [createNickname, setCreateNickname] = useState(false);
 
+    const aaa = useSelector((state: any) => state.userInfo.userInfo);
+
+    console.log("aaa", aaa);
+
     const location = useLocation();
+    const dispatch = useDispatch();
+
+    const tokenValue = location && location.search.split("token=")[1];
+
+    const sliceTokenValue = tokenValue && tokenValue.substring(0, tokenValue.indexOf("&"));
 
     useEffect(() => {
         const getProject = async () => {
@@ -194,6 +205,26 @@ const MainPage = ({ modalOpen, setModalOpen }: { modalOpen: any; setModalOpen: a
 
         getProject();
     }, []);
+
+    useEffect(() => {
+        const getUserInfo = async () => {
+            try {
+                if (sliceTokenValue) {
+                    const response = await axios.get("http://ec2-3-35-102-195.ap-northeast-2.compute.amazonaws.com/api/member", {
+                        headers: { Authorization: `Bearer ${sliceTokenValue}` },
+                    });
+                    console.log(response.data);
+                    dispatch(getUserInformation(response.data));
+                } else {
+                    return console.log("gd");
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        };
+
+        getUserInfo();
+    }, [sliceTokenValue]);
 
     return (
         <>
