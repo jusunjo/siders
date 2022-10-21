@@ -1,13 +1,14 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
 import LoginModal from "../components/LoginModal";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import SelectBox from "../components/SelectBox";
 import SidersBox from "../components/SidersBox";
 import NicknameModal from "../components/NicknameModal";
-import { getUserInformation } from "../modules/userInfo";
+import { getUserInformation, getUserToken } from "../modules/userInfo";
 import { useDispatch, useSelector } from "react-redux";
+import { getProject } from "../api/MainApi";
 
 const StyledMainPage = styled.div`
     position: relative;
@@ -174,36 +175,41 @@ const StyledMainPage = styled.div`
         flex-wrap: wrap;
     }
 `;
-const MainPage = ({ modalOpen, setModalOpen }: { modalOpen: any; setModalOpen: any }) => {
+
+const customAxios = axios.create({
+    baseURL: "http://ec2-3-35-102-195.ap-northeast-2.compute.amazonaws.com",
+    // baseURL:prcoess.env.PUBLIC~~~.BASE_URL
+});
+
+interface Props {
+    modalOpen: boolean;
+    setModalOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+const url = process.env.REACT_APP_API_KEY;
+
+const MainPage = ({ modalOpen, setModalOpen }: Props) => {
     const [selectFilter, setSelectFilter] = useState("all");
     const [selectCategory, setSelectCategory] = useState("모집 유형");
     const [CategoryFocus, setCategoryFocus] = useState(false);
     const [SidersBoxList, setSidersBoxList] = useState<any[]>();
     const [createNickname, setCreateNickname] = useState(false);
 
-    const aaa = useSelector((state: any) => state.userInfo.userInfo);
-
-    console.log("aaa", aaa);
-
     const location = useLocation();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const tokenValue = location && location.search.split("token=")[1];
 
     const sliceTokenValue = tokenValue && tokenValue.substring(0, tokenValue.indexOf("&"));
 
+    //메인페이지 sidersBox api 호출
+    const getBox = async () => {
+        setSidersBoxList(await getProject());
+    };
+
     useEffect(() => {
-        const getProject = async () => {
-            try {
-                const response = await axios.get("http://ec2-3-35-102-195.ap-northeast-2.compute.amazonaws.com/api/posts?page=1&size=30");
-
-                setSidersBoxList(response.data.content);
-            } catch (e) {
-                console.log(e);
-            }
-        };
-
-        getProject();
+        getBox();
     }, []);
 
     useEffect(() => {
@@ -213,10 +219,11 @@ const MainPage = ({ modalOpen, setModalOpen }: { modalOpen: any; setModalOpen: a
                     const response = await axios.get("http://ec2-3-35-102-195.ap-northeast-2.compute.amazonaws.com/api/member", {
                         headers: { Authorization: `Bearer ${sliceTokenValue}` },
                     });
-                    console.log(response.data);
                     dispatch(getUserInformation(response.data));
+                    dispatch(getUserToken(sliceTokenValue));
+                    navigate("/");
                 } else {
-                    return console.log("gd");
+                    return;
                 }
             } catch (e) {
                 console.log(e);

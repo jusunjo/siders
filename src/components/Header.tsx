@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -123,8 +124,9 @@ const Header = ({ setModalOpen }: { setModalOpen: any }) => {
     const [isLogin, setIsLogin] = useState(false);
     const [CategoryFocus, setCategoryFocus] = useState(false);
 
-    const navigate = useNavigate();
+    const reduxValue = useSelector((state: any) => state.userInfo);
 
+    const navigate = useNavigate();
     const showModal = () => {
         setModalOpen(true);
     };
@@ -135,7 +137,7 @@ const Header = ({ setModalOpen }: { setModalOpen: any }) => {
                 Siders
             </div>
             <div className="sign">
-                {!isLogin ? (
+                {reduxValue.userInfo.isAuthMember !== true ? (
                     <div onClick={showModal} className="signIn">
                         로그인
                     </div>

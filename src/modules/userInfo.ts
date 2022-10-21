@@ -4,6 +4,7 @@ const userInfo = createSlice({
     name: "userInfo",
     initialState: {
         userInfo: [],
+        userToken: "",
     },
 
     reducers: {
@@ -13,9 +14,15 @@ const userInfo = createSlice({
                 userInfo: action.payload,
             };
         },
+        getUserToken: (state, action) => {
+            return {
+                ...state,
+                userToken: action.payload,
+            };
+        },
     },
 });
 
-export const { getUserInformation } = userInfo.actions;
+export const { getUserInformation, getUserToken } = userInfo.actions;
 
 export default userInfo.reducer;

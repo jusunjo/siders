@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import SkillBox from "../components/SkillBox";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 // import Calendar from "../components/Calendar";
 
@@ -284,18 +285,18 @@ const CreateProject = () => {
     const [contact, setContact] = useState();
     // const [wantPeople, setWantPeople] = useState<any[]>([]);
     // const [aaa, setAaa] = useState();
-    const group = ["프로젝트", "스터디"];
+    const group = ["project", "study"];
     const term = ["기간 미정", "1~3개월", "4~6개월", "장기"];
 
     const [data1, setData1] = useState();
     const [data2, setData2] = useState();
     const [data3, setData3] = useState();
 
+    const reduxValue = useSelector((state: any) => state.userInfo);
+
     useEffect(() => {
         setArraySkillBox((data) => [...data, countSkillBox]);
     }, [countSkillBox]);
-
-    console.log(countSkillBox, arraySKillBox);
 
     const body = {
         title: title,
@@ -304,17 +305,68 @@ const CreateProject = () => {
         recruitIntroduction: content,
         expectedPeriod: termValue,
         fieldsList: [data1, data2, data3],
+        // title: "제목123",
+        // recruitType: "study",
+        // contact: "010.0000.0000",
+        // recruitIntroduction: "공부할 사람을 모집합니다.",
+        // expectedPeriod: "1개월",
+        // fieldsList: [
+        //     {
+        //         fieldsName: "백엔드",
+        //         recruitCount: 1,
+        //         totalAbility: "Low",
+        //         stacks: [
+        //             {
+        //                 stackName: "백엔드스택1",
+        //             },
+        //             {
+        //                 stackName: "백엔드스택2",
+        //             },
+        //             {
+        //                 stackName: "백엔드스택3",
+        //             },
+        //         ],
+        //     },
+        //     {
+        //         fieldsName: "백엔드",
+        //         recruitCount: 1,
+        //         totalAbility: "Low",
+        //         stacks: [
+        //             {
+        //                 stackName: "백엔드스택1",
+        //             },
+        //             {
+        //                 stackName: "백엔드스택2",
+        //             },
+        //             {
+        //                 stackName: "백엔드스택3",
+        //             },
+        //         ],
+        //     },
+        //     {
+        //         fieldsName: "백엔드",
+        //         recruitCount: 1,
+        //         totalAbility: "Low",
+        //         stacks: [
+        //             {
+        //                 stackName: "백엔드스택1",
+        //             },
+        //             {
+        //                 stackName: "백엔드스택2",
+        //             },
+        //             {
+        //                 stackName: "백엔드스택3",
+        //             },
+        //         ],
+        //     },
+        // ],
     };
 
     console.log(body);
 
     const addWriting = async () => {
         try {
-            await axios.post("http://ec2-3-35-102-195.ap-northeast-2.compute.amazonaws.com/api/recruitment", body, {
-                headers: {
-                    Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDA4NjYwMTA3NjY3NzcwMzIwMDQiLCJhdXRob3JpdHkiOiJST0xFX1VTRVIiLCJleHAiOjE2NjYwODEzMTJ9.WabILdr7V1EOP74QYvczSlzL-fZs-ZGM43DaxwFuCQ_rIZcrMhg1MIlsBiSUq4eRsams7RnzqM3FsdBLf0eRcA`,
-                },
-            });
+            await axios.post("http://ec2-3-35-102-195.ap-northeast-2.compute.amazonaws.com/api/recruitment", body, { headers: { Authorization: `Bearer ${reduxValue.userToken}` } });
         } catch (e) {
             console.log(e);
         }

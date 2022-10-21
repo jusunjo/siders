@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import DetailPageBox from "../components/DetailPageBox";
 import { FieldsListData, WritingInfo } from "../interface/DetailPageType";
@@ -170,6 +170,8 @@ const DetailPage = () => {
 
     const { id } = useParams();
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         const getDetailInfo = async () => {
             try {
@@ -183,9 +185,11 @@ const DetailPage = () => {
         getDetailInfo();
     }, []);
 
-    const moveKakaoLink = () => {};
+    // const moveKakaoLink = () => {
+    //     navigate("www.naver.com");
+    // };
 
-    console.log(detailInfo);
+    console.log(detailInfo && detailInfo.contact);
 
     return (
         <StyledDetailPage>
@@ -219,14 +223,22 @@ const DetailPage = () => {
                 <div className="contact">
                     <div className="text contactText">연락처</div>
                     <div className="value contactValue"> 카카오톡 오픈채팅</div>
-                    <img onClick={moveKakaoLink} alt="kakaoLink" className="kakaoLink" src={process.env.PUBLIC_URL + `/assets/kakaoLink.png`} />
+
+                    <img
+                        onClick={() => {
+                            window.open(detailInfo && detailInfo.contact);
+                        }}
+                        alt="kakaoLink"
+                        className="kakaoLink"
+                        src={process.env.PUBLIC_URL + `/assets/kakaoLink.png`}
+                    />
                 </div>
                 <div className="peopleText">모집인원</div>
                 <div className="DetailPageBoxs">{detailInfo && detailInfo.fieldsList.map((it) => <DetailPageBox it={it} />)}</div>
             </div>
             <div className="content">
                 <div className="contentTitle">소개</div>
-                <div>{detailInfo && detailInfo.recruitIntroduction}</div>
+                {detailInfo && <div dangerouslySetInnerHTML={{ __html: detailInfo.recruitIntroduction }}></div>}
             </div>
         </StyledDetailPage>
     );
